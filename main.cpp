@@ -4,7 +4,7 @@ int main() {
 
     Chapter2 Ch2;
 
-    Ch2.ComputeAverage();
+    Ch2.MyComputeLoan();
 
     return 0;
 }

@@ -12,8 +12,12 @@ class Chapter2 {
 private:
     // Nothing private
 public:
-    int ComputeArea();
-    int ComputeAverage();
+    void ComputeArea();
+    void ComputeAverage();
+    void DisplayRemainingTime();
+    void FahrenHeitToCelcius();
+    void MyComputeLoan();
+    void TheirComputeLoan();
 };
 
 
