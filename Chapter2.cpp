@@ -55,7 +55,7 @@ void Chapter2::DisplayRemainingTime() {
     // Outputs to user
     std::cout   << seconds << " seconds is: " << hours << "hrs, " << minutes
                 << "mins & " << remainingSecFromMins << "s." << std::endl;
-};
+}
 
 void Chapter2::FahrenHeitToCelcius() {
 
