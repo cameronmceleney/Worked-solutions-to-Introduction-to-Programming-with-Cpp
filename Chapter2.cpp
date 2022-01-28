@@ -1,7 +1,7 @@
 #include "Chapter2.h"
 
 int Chapter2::ComputeArea() {
-    /* This code solves the problem of 'Compute the area of a circle' given in Chapter 2,
+    /* Solves the problem of 'Compute the area of a circle' given in Chapter 2,
      * Section 2.2 */
 
     double circleRadius, circleArea;
@@ -19,5 +19,20 @@ int Chapter2::ComputeArea() {
     return 0;
 }
 
+int Chapter2::ComputeAverage() {
+    /* Solves the problem 'Compute the average of three numbers' given in
+     * Chapter 2, Section 2.3 */
 
+    double number1, number2, number3, average;
+
+    std::cout << "Enter any three numbers, separated by spaces, to find their average: ";
+    std::cin >> number1 >> number2 >> number3;
+
+    average = (number1 + number2 + number3) / 3;
+
+    std::cout   << "The average of (" << number1 << ", " << number2 << ", "
+                << number3 << ") is : " << average << "." << std::endl;
+
+    return 0;
+}
 

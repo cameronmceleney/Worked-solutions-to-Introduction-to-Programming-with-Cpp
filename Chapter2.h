@@ -13,6 +13,7 @@ private:
     // Nothing private
 public:
     int ComputeArea();
+    int ComputeAverage();
 };
 
 

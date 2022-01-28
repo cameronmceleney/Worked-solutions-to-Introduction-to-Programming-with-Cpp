@@ -4,7 +4,7 @@ int main() {
 
     Chapter2 Ch2;
 
-    Ch2.ComputeArea();
+    Ch2.ComputeAverage();
 
     return 0;
 }
