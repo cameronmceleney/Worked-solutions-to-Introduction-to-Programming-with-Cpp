@@ -1,6 +1,10 @@
-#include <iostream>
+#include "Chapter2.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    Chapter2 Ch2;
+
+    Ch2.ComputeArea();
+
     return 0;
 }
