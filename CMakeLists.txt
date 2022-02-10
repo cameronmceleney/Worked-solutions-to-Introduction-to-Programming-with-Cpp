@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(TestLocationLocalforCpp
         main.cpp
-        Chapter2.cpp Chapter2.h
-        Chapter2_My_Solutions.cpp Chapter2_My_Solutions.h
+        Chapter2Listings.cpp Chapter2Listings.h
+        Chapter2Exercises.cpp Chapter2Exercises.h
         Chapter3Listings.cpp Chapter3Listings.h
         Chapter3Exercises.cpp Chapter3Exercises.h
         Chapter4Listings.cpp Chapter4Listings.h

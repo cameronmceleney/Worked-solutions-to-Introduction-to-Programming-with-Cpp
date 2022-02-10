@@ -1,5 +1,6 @@
 #include <iostream>
-#include "Chapter2_My_Solutions.h"
+#include "Chapter2Listings.h"
+#include "Chapter2Exercises.h"
 #include "Chapter3Listings.h"
 #include "Chapter3Exercises.h"
 #include "Chapter4Listings.h"
@@ -7,13 +8,14 @@
 
 int main() {
 
-    Chapter2_My_Solutions Ch2Mine;
-    Chapter3Listings Ch3;
+    Chapter2Listings Ch2L;
+    Chapter2Exercises Ch2Ex;
+    Chapter3Listings Ch3L;
     Chapter3Exercises Ch3Ex;
     Chapter4Listings Ch4L;
-    Chapter4Exercises Ch4E;
+    Chapter4Exercises Ch4Ex;
 
-    Ch4E.Exercise4_1();
+    Ch4Ex.Exercise4_1();
 
     return 0;
 }

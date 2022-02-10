@@ -97,7 +97,7 @@ void Chapter3Exercises::Exercise3_3() {
 
 void Chapter3Exercises::Exercise3_4() {
 
-    /* My solution for Prolem 3.4 covering Sections 3.2-3.10 in Chapter 3
+    /* My solution for Problem 3.4 covering Sections 3.2-3.10 in Chapter 3
      *
      * (Financial Application: monetary units) Modify Listing 2.10, ComputerChange.cpp, to display only
      * the nonzero denominations, using singular words for singular units such as 1 dollar and 1 penny, and plural
