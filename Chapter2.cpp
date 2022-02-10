@@ -134,3 +134,106 @@ void Chapter2::TheirComputeLoan() {
     // Display results
     cout << "The monthly payment is " << monthlyPayment << "\nThe total payment is " << totalPayment << endl;
 }
+
+void Chapter2::MyShowCurrentTime() {
+    /* My solution to Problem 2.11.3 in Chapter 2, Section 2.11 which I wrote at speed as
+     * a test*/
+
+    unsigned int totalSeconds, totalMinutes, totalHours;
+    unsigned short currentSeconds, currentMinutes, currentHours;
+
+    // Finds the total enlapsed seconds since the UNIX epoch [time(0)], and convert that to minutes and hours
+    totalSeconds    =   time(0);
+    totalMinutes    =   totalSeconds / 60;
+    totalHours      =   totalMinutes / 60;
+
+    // Find the current time
+    currentSeconds   =   totalSeconds % 60;
+    currentMinutes   =   totalMinutes % 60;
+    currentHours    =   totalHours % 24;
+
+    // Display current time to user in HH:MM:SS format
+    std::cout   << "Since the UNIX epoch " << totalSeconds << "s have passed.\nThis leads us to find that the current time is "
+                << currentHours << ":" << currentMinutes << ":" << currentSeconds << "." << std::endl;
+
+}
+
+void Chapter2::PComputeCylinderVolume() {
+
+    // My solution to Programming Exercise 2.1 in Chapter 2
+    using namespace std;
+
+    double cylinderRadius, cylinderLength, cylinderArea, cylinderVolume;
+
+    cout << "Enter the radius and length of a cylinder: ";
+    cin >> cylinderRadius >> cylinderLength;
+
+    // Compute the area and volume with units m^2 and m^3
+    cylinderArea = cylinderRadius * cylinderRadius * M_PI;
+    cylinderVolume = cylinderArea * cylinderLength;
+
+    std::cout << "The area is " << cylinderArea << endl;
+    std::cout << "The volume is " << cylinderVolume << endl;
+}
+
+void Chapter2::PCelciusToFahrenheit() {
+
+    // My solution to Programming Exercise 2.2 in Chapter 2. It converts a temperature in Celsius to one in Fahrenheit.
+
+    using namespace std;
+
+    double celsius, fahrenheit;
+
+    cout << "Enter a degree in Celsius: ";
+    cin >> celsius;
+
+    fahrenheit = (9.0 / 5) * celsius + 32;
+
+    cout << "Fahrenheit degree is " << fahrenheit << endl;
+}
+
+void Chapter2::PUSD2EUR() {
+
+    /* My solution to Programming Exercise 2.3 in Chapter 2. It converts an amount of US Dollar to Euros
+     * In the book it states $1.00 == 0.755 EUR */
+
+    using namespace std;
+
+    double dollarAmount, euroAmount, conversionRate;
+
+    // Sets the conversion rate between USD to EUR as per the book's given value
+    conversionRate = 0.755;
+
+    // Takes in USD amount
+    cout << "Enter an amount in US Dollars: ";
+    cin >> dollarAmount;
+
+    // Converts USD value to EUR value
+    euroAmount = dollarAmount * conversionRate;
+
+    // Tells user what the equivalent amount of EUR are to the entered USD amount
+    cout << dollarAmount << " USD = " << euroAmount << " EUR" << endl;
+}
+
+void Chapter2::PPoundstoKilo(){
+
+    /* My solution to Programming Exercise 2.3 in Chapter 2. It converts an amount of US Dollar to Euros
+     * In the book it states 1.00 [lb] == 0.454 [kg] */
+
+    using namespace std;
+
+    double weightInPounds, weightInKilos, conversionRate;
+
+    // Sets conversion rate of [lb] to [kg] as per the book's value
+    conversionRate = 0.454;
+
+    // Takes in the user's weight in [lb] from console input
+    cout << "Enter a number in pounds:";
+    cin >> weightInPounds;
+
+    // Converts weight from [lb] to [kg]
+    weightInKilos = weightInPounds * conversionRate;
+
+    // Displays equivalent weight in [kg] to console
+    cout << "The kilograms is " << weightInKilos << endl;
+}

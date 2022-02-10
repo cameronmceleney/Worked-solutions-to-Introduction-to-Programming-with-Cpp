@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <ctime>
 
 class Chapter2 {
 private:
@@ -16,8 +17,15 @@ public:
     void ComputeAverage();
     void DisplayRemainingTime();
     void FahrenHeitToCelcius();
+
     void MyComputeLoan();
     void TheirComputeLoan();
+    void MyShowCurrentTime();
+
+    void PComputeCylinderVolume();
+    void PCelciusToFahrenheit();
+    void PUSD2EUR();
+    void PPoundstoKilo();
 };
 
 

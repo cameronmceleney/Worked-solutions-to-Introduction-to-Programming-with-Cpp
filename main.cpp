@@ -4,7 +4,7 @@ int main() {
 
     Chapter2 Ch2;
 
-    Ch2.MyComputeLoan();
+    Ch2.PPoundstoKilo();
 
     return 0;
 }
