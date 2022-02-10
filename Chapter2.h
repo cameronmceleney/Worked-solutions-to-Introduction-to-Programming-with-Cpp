@@ -13,8 +13,9 @@ class Chapter2 {
 private:
     // Nothing private
 public:
-    void ComputeArea();
-    void ComputeAverage();
+    void ComputeArea();             // Listing 2.1
+    void COmputeAreaConsoleInput(); // Listing 2.2
+    void ComputeAverage();          // Listing 2.3
     void DisplayRemainingTime();
     void FahrenHeitToCelcius();
 

@@ -1,0 +1,12 @@
+#ifndef TESTLOCATIONLOCALFORCPP_CHAPTER4EXERCISES_H
+#define TESTLOCATIONLOCALFORCPP_CHAPTER4EXERCISES_H
+
+#include <iostream>
+
+class Chapter4Exercises {
+public:
+    void Exercise4_1();             //
+};
+
+
+#endif //TESTLOCATIONLOCALFORCPP_CHAPTER4EXERCISES_H
