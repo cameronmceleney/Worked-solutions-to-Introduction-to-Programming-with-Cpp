@@ -1096,7 +1096,7 @@ void Chapter3Exercises::Exercise3_22() {
     /* My solution to Problem 3.22 covering Sections 3.11-3.17 in Chapter 3
      *
      * (Using the && and || operators) Write a program that prompts the user to enter an integer and determines whether
-     * it is divisible by 5 and 6, whether it is divisible by 5 or 6, and whether it is divisible by 5 or 6 by not
+     * it is divisible by 5 and 6, whether it is divisible by 5 or 6, and whether it is divisible by 5 or 6 but not
      * both. Note: This is almost identical to Listing 3.6*/
 
     using namespace std;
