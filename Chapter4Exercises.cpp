@@ -611,7 +611,7 @@ void Chapter4Exercises::Exercise4_14() {
     }
 }
 
-//Currently working here
+//Currently, working here
 void Chapter4Exercises::Exercise4_15() {
 
     /* (* difficulty)
