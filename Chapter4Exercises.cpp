@@ -611,7 +611,6 @@ void Chapter4Exercises::Exercise4_14() {
     }
 }
 
-//Currently, working here
 void Chapter4Exercises::Exercise4_15() {
 
     /* (* difficulty)
@@ -624,5 +623,89 @@ void Chapter4Exercises::Exercise4_15() {
 
     using namespace std;
 
-    int n1, n2, gcd;
+    int n1, n2, gcd = 0;
+
+    // Prompt user for two integers
+    cout << "Enter the first integer: ";
+    cin >> n1;
+
+    cout << "Enter the second integer: ";
+    cin >> n2;
+
+    // Ensure that the upper limit for the loop comes from the larger number
+    int d = 0;
+    if (n2 > n1)
+        d = n2;
+    else
+        d = n1;
+
+    for (int number = d+1; number >= 1; number--) {
+        // Finds the largest factor which is common to both numbers
+        if (n1 % number == 0 && n2 % number == 0) {
+            // breaks out of FOR loop when common factor is found
+            gcd = number;
+            break;
+        }
+    }
+
+    // Outputs GCD to user
+    cout << "The greatest common divisor (gcd) is " << gcd;
+}
+
+void Chapter4Exercises::Exercise4_16() {
+
+    /* (** difficulty)
+     *
+     * Write a program that reads an integer and displays all its smallest factors, also known as prime factors. For
+     * example, if the input integer is 120, the output should be as follows: 2, 2, 2, 3, 5
+     */
+
+    using namespace std;
+
+    // Prompt user to enter an integer
+    cout << "Enter an integer to see its prime factors: ";
+    int number;
+    cin >> number;
+
+    cout << "The prime factors of " << number << " are: ";
+
+    // Find the number of times that number has 2 as a factor. Continues until number is odd
+    while (number % 2 == 0) {
+        number /= 2;
+        cout << 2 << ", ";
+    }
+
+    // Loops through all odd numbers until the factors being tested are larger than n itself
+    for (int testFactor = 3; testFactor <= pow(number, 0.5); testFactor += 2) {
+
+        while (number % testFactor == 0) {
+            // when i divides number, output this to console and then divide number by i
+            cout << testFactor << ", ";
+            number /= testFactor;
+        }
+    }
+
+    // Handles case where the final value of number is an odd prime number (this would be not outputted by the loops)
+    if (number > 2)
+        cout << number << "." << endl;
+}
+
+void Chapter4Exercises::Exercise4_17() {
+
+    /* (** difficulty)
+     *
+     * Write a nested for loop that prints the following output
+     *
+     *      Figure shows an image in the style of Pascal's Pyramid, except it's all in powers of 2
+     *
+     *                                      1
+     *                                 1    2   1
+     *                             1   2    4   2   1
+     *
+     * and so on.
+     */
+
+    using namespace std;
+
+
 }

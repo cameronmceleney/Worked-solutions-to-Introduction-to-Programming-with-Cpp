@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Chapter2Listings.h"
 #include "Chapter2Exercises.h"
 #include "Chapter3Listings.h"
@@ -15,7 +14,7 @@ int main() {
     Chapter4Listings Ch4L;
     Chapter4Exercises Ch4Ex;
 
-    Ch4Ex.Exercise4_1();
+    Ch4Ex.Exercise4_16();
 
     return 0;
 }

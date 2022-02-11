@@ -31,7 +31,14 @@ public:
     void Exercise4_14();            // (Displaying the ASCII character table)
 
     // Covers content from Section 4.8
-    void Exercise4_15();
+    void Exercise4_15();            // (Computing the greatest common divisor)
+    void Exercise4_16();            // (Finding the factors of an integer)
+    void Exercise4_17();            // (Printing prime numbers in a pyramid pattern)
+    void Exercise4_18();            // (Printing four patterns using loops)
+    void Exercise4_19();            // (Displaying a pyramid)
+    void Exercise4_20();            // (Printing prime numbers between 2 and 1000)
+
+
 };
 
 
