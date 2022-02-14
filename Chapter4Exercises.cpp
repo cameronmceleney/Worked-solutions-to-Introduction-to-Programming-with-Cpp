@@ -710,25 +710,30 @@ void Chapter4Exercises::Exercise4_17() {
     const int MAX_ROWS = 7;
     const int BASE = 2;
 
-    void powerfinder(int exponent) {
+    /* Can't define the function within the class, but here is some code that would find pow(a,b)
+    void powerfinder(int base, int exponent) {
 
+        int answer = 1;
+        int i = 1;
+
+        while (i <= exponent) {
+            val *= BASE;
+            i++;
+        }
     }
-
+    */
     for (int row = 0; row <= MAX_ROWS; row++) {
 
         for (int columnPad = 1; columnPad <= MAX_ROWS - row; columnPad++) {
             // Pad refers to the padding (blank space) before the LHS most digit is printed
             cout << '\t';
         }
+
         for (int columnLHS = 0; columnLHS <= row; columnLHS++) {
             // Print LHS of row (excluding central value)
 
-            int val = 1;
-            int i = 1;
-            while (i <= columnLHS){
-                val = val * BASE;
-                i++;
-            }
+            int val = pow(BASE, columnLHS);
+
             if (val < 10)
                 cout << "   " << val;
             else if (val < 100)
@@ -738,7 +743,7 @@ void Chapter4Exercises::Exercise4_17() {
         }
         for (int columnRHS = row - 1; columnRHS >= 0; columnRHS--) {
             // Print RHS of row (including central value)
-            int val = pow(2, columnRHS);
+            int val = pow(BASE, columnRHS);
             if (val < 10)
                 cout << "   " << val;
             else if (val < 100)
