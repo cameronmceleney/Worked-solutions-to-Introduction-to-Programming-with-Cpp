@@ -38,7 +38,31 @@ public:
     void Exercise4_19();            // (Displaying a pyramid)
     void Exercise4_20();            // (Printing prime numbers between 2 and 1000)
 
+    // Comprehensive Questions
+    void Exercise4_21();            // (Financial application: comparing loans with various interest rates)
+    void Exercise4_22();            // (Financial application: loan amortisation schedule)
+    void Exercise4_23();            // (Demonstrating cancellation errors)
+    void Exercise4_24();            // (Summing a series)
+    void Exercise4_25();            // (Computing PI (3.14...))
+    void Exercise4_26();            // (Computing e (2.71...))
+    void Exercise4_27();            // (Displaying calendars)
+    void Exercise4_28();            // (Displaying the first days of each month)
+    void Exercise4_29();            // (Displaying leap years)
 
+    void Exercise4_30();            //
+    void Exercise4_31();            //
+    void Exercise4_32();            //
+    void Exercise4_33();            //
+    void Exercise4_34();            //
+    void Exercise4_35();            //
+    void Exercise4_36();            //
+    void Exercise4_37();            //
+    void Exercise4_38();            //
+    void Exercise4_39();            //
+
+    void Exercise4_40();            //
+    void Exercise4_41();            //
+    void Exercise4_42();            //
 };
 
 
