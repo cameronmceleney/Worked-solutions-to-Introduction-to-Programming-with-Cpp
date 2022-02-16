@@ -1213,20 +1213,394 @@ void Chapter4Exercises::Exercise4_27() {
      */
 
     using namespace std;
+
+    // Minimum value of SPACING_WIDTH is 4 (size of a single \t)
+    const int DAYS_PER_LINE = 7, SPACING_WIDTH = 8, MAX_MONTH = 12;
+
+    // Prompt user for all required inputs here
+    cout << "Enter the year: ";
+    int year;
+    cin >> year;
+
+    cout << "Enter the first day of the year (1: Monday,...,7: Sunday): ";
+    int firstDay; // This will be overwritten after each iteration of MONTH FOR loop
+    cin >> firstDay;
+
+    for (int month = 1; month <= MAX_MONTH; month++) {
+
+        int daysInMonth; // Initialised within switch statement
+        int daysInLine; // A counter,
+
+        switch(month) {
+            case 1:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t January " << year;
+                daysInMonth = 31;
+                break;
+            case 2:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t February " << year;
+                daysInMonth = 28;
+                break;
+            case 3:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t March " << year;
+                daysInMonth = 31;
+                break;
+            case 4:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t April " << year;
+                daysInMonth = 30;
+                break;
+            case 5:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t May " << year;
+                daysInMonth = 31;
+                break;
+            case 6:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t June " << year;
+                daysInMonth = 30;
+                break;
+            case 7:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t July " << year;
+                daysInMonth = 31;
+                break;
+            case 8:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t August " << year;
+                daysInMonth = 31;
+                break;
+            case 9:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t September " << year;
+                daysInMonth = 30;
+                break;
+            case 10:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t October " << year;
+                daysInMonth = 31;
+                break;
+            case 11:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t November " << year;
+                daysInMonth = 30;
+                break;
+            case 12:
+                cout << setw(SPACING_WIDTH + SPACING_WIDTH) << ' '
+                     << "\t December " << year;
+                daysInMonth = 31;
+                break;
+
+        }
+
+        // Test if leap year (from Listing 3.7)
+        bool isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        if (isLeapYear && month == 2)
+            daysInMonth++;
+
+        // Table headers and subheaders
+        cout << "\n---------------------------------------------------\n";
+        cout << left
+             << setw(SPACING_WIDTH) << "Sun"
+             << setw(SPACING_WIDTH) << "Mon"
+             << setw(SPACING_WIDTH) << "Tue"
+             << setw(SPACING_WIDTH) << "Wed"
+             << setw(SPACING_WIDTH) << "Thu"
+             << setw(SPACING_WIDTH) << "Fri"
+             << setw(SPACING_WIDTH) << "Sat" << right << "\n\n";
+
+        // Sunday should have no padding as it's the 1st column, and all other days are offset to the right by one
+        // column, compared to the user input (e.g. Monday==1 from input, but is 2nd column)
+        if (firstDay < 7) {
+            // Do if not Sunday
+            daysInLine  = firstDay;
+
+            for (int tablePad = 1; tablePad <= daysInLine; tablePad++)
+                // Add required amount of padding. Extra ' ' is so setw() can be used as it requires some char content
+                cout << setw(SPACING_WIDTH) << ' ';
+
+            daysInLine++; // Add offset
+        } else {
+            // Do if Sunday
+            daysInLine = 1;
+        }
+
+        for (int day = 1; day <= daysInMonth; day++) {
+            // Prints each day in separate column
+            cout << setw(3) << day;
+
+            if (daysInLine % DAYS_PER_LINE == 0) {
+                // No need to add extra spacing if new line will be taken anyway
+                cout << '\n';
+            } else {
+                // Ensures total spacing after each iteration equals SPACING_WIDTH to keep column widths consistent
+                cout << setw(SPACING_WIDTH - 3) << ' ';
+            }
+
+            daysInLine++; // Must be inside DAY FOR loop, after IF statement
+        }
+
+        cout << "\n\n\n"; // Add spacing between months of calendar
+
+        // Remove offset so the next month of the calendar has the correct start date
+        if (daysInLine % 7 == 0)
+            // (if daysInLine%7==0 then daysInLine % 7 - 1 == -1). The next month should start on a Saturday so
+            // can hardcode this in
+            firstDay = 6;
+        else
+            firstDay = daysInLine % 7 - 1;
+    }
 }
 
 void Chapter4Exercises::Exercise4_28() {
 
-    /* ( difficulty)
+    /* (** difficulty)
      *
+     * Write a program that prompts the user to enter the year and first day of the year, and displays the first day
+     * of each month in the year on the console. For example, if the user entered the year 2005, and 6 for Saturday,
+     *  January 1, 2005, your program should display:
      *
+     *              January 1, 2005 is Saturday
+     *              ...
+     *              December 1, 2005 is Thursday
      */
+
+    using namespace std;
+
+    // Prompt user for all inputs
+    cout << "\nEnter the year: ";
+    int year;
+    cin >> year;
+
+    cout << "Enter the first day of the year as an integer (1: Monday,...,7: Sunday): ";
+    int day;
+    cin >> day;
+
+    // Formula to test for leap year comes from Listing 3.7
+    bool isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+    // The FOR loop contains switch statements as arrays haven't yet been introduced
+    for (int month = 1; month <= 12; month++) {
+        // Initial-action must be (month = 1), and loop-continuation-condition can be (month <= 2) to (month <= 12)
+        string dayName;
+
+        switch (day % 7) {
+            // Finds the current day based upon conditions from previous iteration of loop
+            case 0:
+                dayName = "Sunday";
+                break;
+
+            case 1:
+                dayName = "Monday";
+                break;
+
+            case 2:
+                dayName = "Tuesday";
+                break;
+
+            case 3:
+                dayName = "Wednesday";
+                break;
+
+            case 4:
+                dayName = "Thursday";
+                break;
+
+            case 5:
+                dayName = "Friday";
+                break;
+
+            case 6:
+                dayName = "Saturday";
+                break;
+        }
+
+        switch (month) {
+            // Format of text is from question
+            case 1:
+                cout << "\nJanuary 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+            case 2:
+                cout << "\nFebruary 1, " << year << " is " << dayName;
+                if (isLeapYear)
+                    day += 29;
+                else
+                    day += 28;
+                break;
+
+            case 3:
+                cout << "\nMarch 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+            case 4:
+                cout << "\nApril 1, " << year << " is " << dayName;
+                day += 30;
+                break;
+
+            case 5:
+                cout << "\nMay 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+            case 6:
+                cout << "\nJune 1, " << year << " is " << dayName;
+                day += 30;
+                break;
+
+            case 7:
+                cout << "\nJuly 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+            case 8:
+                cout << "\nAugust 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+            case 9:
+                cout << "\nSeptember 1, " << year << " is " << dayName;
+                day += 30;
+                break;
+
+            case 10:
+                cout << "\nOctober 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+            case 11:
+                cout << "\nNovember 1, " << year << " is " << dayName;
+                day += 30;
+                break;
+
+            case 12:
+                cout << "\nDecember 1, " << year << " is " << dayName;
+                day += 31;
+                break;
+
+        }
+    }
 }
 
 void Chapter4Exercises::Exercise4_29() {
 
+    /* (- difficulty)
+     *
+     * Write a program that displays, in five values per line, all leap years in the twentieth century (from the
+     * year 1901 to 2000)
+     *
+     * Note: Don't just search online and hardcode this all in! Use formula from Listing 3.7
+     */
+
+    using namespace std;
+
+    // Constant values come from question
+    const int MIN_YEAR = 1901, MAX_YEAR = 2000, YEARS_PER_LINE = 5;
+
+    int yearsOnLine = 0; // tracks how many years have been output to the current line
+    bool isLeapYear = false;
+
+    cout << "The leap years in the 20th century are: \n";
+
+    for (int year = MIN_YEAR; year <= MAX_YEAR; year++) {
+
+        // Formula to find leap year comes from Listing 3.7
+        isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+        if (isLeapYear) {
+
+            cout << year << '\t';
+
+            if (++yearsOnLine % YEARS_PER_LINE == 0)
+                // Pre-increment to account for cout<<year, then tests if there are 5 lines on year
+                // Less readable, but I wished to practice pre- and post-incrementation
+                cout << '\n';
+        }
+    }
+}
+
+void Chapter4Exercises::Exercise4_30() {
+
     /* ( difficulty)
      *
      *
      */
 }
+
+void Chapter4Exercises::Exercise4_31() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_32() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_33() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_34() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_35() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_36() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_37() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_38() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+void Chapter4Exercises::Exercise4_39() {
+
+    /* ( difficulty)
+     *
+     *
+     */
+}
+
+

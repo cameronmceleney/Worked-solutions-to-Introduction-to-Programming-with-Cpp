@@ -49,16 +49,16 @@ public:
     void Exercise4_28();            // (Displaying the first days of each month)
     void Exercise4_29();            // (Displaying leap years)
 
-    void Exercise4_30();            //
-    void Exercise4_31();            //
-    void Exercise4_32();            //
-    void Exercise4_33();            //
-    void Exercise4_34();            //
-    void Exercise4_35();            //
-    void Exercise4_36();            //
-    void Exercise4_37();            //
-    void Exercise4_38();            //
-    void Exercise4_39();            //
+    void Exercise4_30();            // (Financial application: compound value)
+    void Exercise4_31();            // (Financial application: computing CD value)
+    void Exercise4_32();            // (Perfect number)
+    void Exercise4_33();            // (Game: lottery)
+    void Exercise4_34();            // (Game: scissors, rock, paper)
+    void Exercise4_35();            // (Summation)
+    void Exercise4_36();            // (Checking ISBN)
+    void Exercise4_37();            // (Financial application: finding the sales amount)
+    void Exercise4_38();            // (Financial application: finding the sales amount)
+    void Exercise4_39();            // (Occurrence of max numbers)
 
     void Exercise4_40();            //
     void Exercise4_41();            //
