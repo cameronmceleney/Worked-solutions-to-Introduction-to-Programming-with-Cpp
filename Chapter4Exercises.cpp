@@ -1525,57 +1525,303 @@ void Chapter4Exercises::Exercise4_29() {
 
 void Chapter4Exercises::Exercise4_30() {
 
-    /* ( difficulty)
+    /* (* difficulty)
      *
+     * Suppose you save $100 each month into a savings account with the annual interest rate 5%. So, the monthly
+     * interest rate is 0.05 / 12 = 0.00417. After the first month, the value in the account becomes:
      *
+     *                                  100 * (1 + 0.00417) = 100.417
+     *
+     *                    After the second month, the value in the account becomes:
+     *
+     *                           (100 + 100.147) * (1 + 0.00417) = 201.252
+     *
+     *                    After the second month, the value in the account becomes:
+     *
+     *                           (100 + 201.252) * (1 + 0.00417) = 302.507
+     *
+     *                    and so on.
+     *
+     * Write a program that prompts the user to enter an amount (e.g., 100), the annual interest rate (e.g., 5), and the
+     * number of months (e.g., 6), and displays the amount in the savings account after each month.
      */
+
+    using namespace std;
+
+    const int SPACING_WIDTH = 12; // Minimum value is 11 due to largest header length
+
+    cout << "Enter the monthly amount to save: $";
+    int monthlyDeposit;
+    cin >> monthlyDeposit;
+    double balance = 0;
+
+    cout << "Enter the annual interest rate: ";
+    int interestRate;
+    cin >> interestRate;
+    double monthlyInterest = interestRate / 1200.0;
+
+    cout << "Enter the total number of months to save: ";
+    int totalMonths;
+    cin >> totalMonths;
+
+    cout << fixed << setprecision(2);
+    cout<< left << setw(SPACING_WIDTH) << "Month" << setw(SPACING_WIDTH) << "Balance ($)" << right << '\n';
+
+    for (int month = 1; month <= totalMonths; month++) {
+
+        balance = (monthlyDeposit + balance) * (1 + monthlyInterest);
+
+        cout << setw(5) << month << setw(SPACING_WIDTH - 5) << ' '
+             << setw(11) << balance << setw(SPACING_WIDTH - 11) << ' '
+             <<  '\n';
+    }
 }
 
 void Chapter4Exercises::Exercise4_31() {
 
-    /* ( difficulty)
+    /* (* difficulty)
      *
+     * Suppose you put $10,000 into a CD with an annual percentage yield of 5.75%.
      *
+     *          After one month, the CD is worth:    10000 + 10000 * 5.75 / 1200 = 10047.91
+     *          After two months, the CD is worth:   100047.91 + 10047.91 * 5.75 / 1200 = 10096.06
+     *          After three months, the CD is worth: 10096.06 + 10096.06 * 5.75 / 1200 = 10144.43
+     *
+     * and so on.
+     *
+     * Write a program that prompts the user to enter an amount (e.g., 10000), the annual percentage yield (e.g., 5.75),
+     * and the number of months (e.g., 18), and displays a table.
      */
+
+    using namespace std;
+
+    const int SPACING_WIDTH = 12;
+
+    cout << "\nEnter the initial deposit amount: ";
+    double balance;
+    cin >> balance;
+
+    cout << "Enter the annual percentage yield: ";
+    double yieldPercentage; // Is an annual percentage at this point
+    cin >> yieldPercentage;
+    yieldPercentage /=  1200; // Is a monthly decimal from this point
+
+    cout << "Enter the maturity period (number of months): ";
+    int totalMonths;
+    cin >> totalMonths;
+
+    cout << fixed << setprecision(2) << '\n';
+
+    cout << left
+         << setw(SPACING_WIDTH) << "Month" << setw(SPACING_WIDTH) << "CD Value($)"
+         << right << '\n';
+
+    for (int month = 1; month <= totalMonths; month++) {
+
+        balance = balance + balance * yieldPercentage;
+
+        cout << setw(5) << month << setw(SPACING_WIDTH - 5) << ' '
+             << setw(11) << balance << setw(SPACING_WIDTH - 11) << ' '
+             << '\n';
+    }
 }
 
 void Chapter4Exercises::Exercise4_32() {
 
-    /* ( difficulty)
+    /* (** difficulty)
      *
-     *
+     * A positive integer is called a perfect number if it is equal to the sum of all of its positive divisors,
+     * excluding itself. For example, 6 is the first perfect number, because 6 = 3 + 2 + 1. The next is 28 = 13 + 7 + 4
+     * + 2 +1. There are four perfect numbers less than 10000. Write a program to find these four numbers
      */
+
+    using namespace std;
+
+    // The 5th perfect number is 33550336 (don't test for it as it will take a while with this algorithm!)
+    const int LIMIT_TO_SEARCH =  10000;
+
+    cout << "The perfect numbers below " << LIMIT_TO_SEARCH << " are:\n";
+    for (int number = 6; number < LIMIT_TO_SEARCH; number++) {
+
+        int perfectSum = 1; // 1 is a divisor of all positive integers. No need to test for it, just initialise sum at 1
+
+        for (int i = 2; i <= number/2.0; i++) {
+            // Dealing with +ve integers. Largest divisor (d) is thus 1/2 of a given number (n) [n/d = 2]
+            if (number % i == 0)
+                // Condition to handle when a divisor is found
+                perfectSum += i;
+        }
+
+        if (perfectSum == number)
+            cout << left << setw(6) << number << "\t";
+    }
 }
 
 void Chapter4Exercises::Exercise4_33() {
 
-    /* ( difficulty)
+    /* (** difficulty)
      *
+     * Revise Listing 3.8, Lottery.cpp, to generate a lottery of a two-digit number. The two digits in the number are
+     * distinct. (Hint: Generate the first digit. Use a loop to continuously generate the second digit until it is
+     * different from the first digit.
      *
+     * Note: This is based off my solution to Listing 3.8
      */
+
+    using namespace std;
+
+    srand(time(0));
+
+    // Informs the user of the prizes on offer
+    cout << "Play the lottery! Guess a two-digit number for a chance to win. The prizes are:"
+         << "\n- 1st: $10,000 (two digits match and are in the correct order)"
+         << "\n- 2nd: $3,000  (two digits match)"
+         << "\n- 3rd: $1,000  (one digit matches)" << endl;
+
+    // Prompts user for their guess
+    cout << "Enter your guess: ";
+    int  guess;
+    cin >> guess;
+
+    // Generate the lottery's digits. digit 1 is the tens, and digit 2 is the units
+    int lotteryDigit1 = rand() % 10;
+    int lotteryDigit2 = rand() % 10;
+
+    // Loop ends when the two lottery digits are different
+    while (lotteryDigit2 == lotteryDigit1)
+        lotteryDigit2 = rand() % 10;
+
+    // Obtains the user's digits
+    int guessDigit1 = guess / 10;
+    int guessDigit2 = guess % 10;
+
+    // Informs user of winning number. No need to display lotteryDigit1 if it's zero
+    if (lotteryDigit1 == 0)
+        cout << "\nThe lottery number is: " << lotteryDigit2 << "." << endl;
+    else
+        cout << "\nThe lottery number is: " << lotteryDigit1 << lotteryDigit2 << "." << endl;
+
+    if (guessDigit1 == lotteryDigit1 && guessDigit2 == lotteryDigit2) {
+        // Checks whether the guess matches the lottery exactly
+        cout << "Congratulations! You won the top prize (worth $10,000) with your guess of " << guess << "." << endl;
+    } else if ((guessDigit1 == lotteryDigit1 || guessDigit2 == lotteryDigit1) &&
+               (guessDigit1 == lotteryDigit2 || guessDigit2 == lotteryDigit2)) {
+        // Checks whether the reversal of digits matches the lottery. Written in this way for scalability
+        cout << "Congratulations! You won the 2nd prize(worth $3000) with your guess of " << guess << "." << endl;
+    } else if (guessDigit1 == lotteryDigit1 || guessDigit2 == lotteryDigit1
+               || guessDigit1 == lotteryDigit2 || guessDigit2 == lotteryDigit2) {
+        // Checks if one digit is in the lottery
+        cout << "Congratulations! You won the 3nd prize (worth $1000) with your guess of " << guess << "." << endl;
+    } else {
+        // States nothing matches
+        cout << "Unfortunately your guess of " << guess << " did not win this time." << endl;
+    }
 }
 
 void Chapter4Exercises::Exercise4_34() {
 
-    /* ( difficulty)
+    /* (*** difficulty)
      *
+     * Exercise 3.14 gives a program that plays the scissor-rock-paper game. Revise the program to let the user
+     * continuously play until either the user or the computer wins more than two times
      *
+     * Note: This program is built upon my solution to Exercise 3.15, not the given example
      */
+
+    using namespace std;
+
+    srand(time(0));
+
+    // Inform user of game's rules
+    cout << "The codes for each move are:\n"
+         << " - 0 : Scissors\n"
+         << " - 1 : Rock\n"
+         << " - 2 : Paper\n";
+
+    unsigned short userScore = 0, computerScore = 0;
+    while (userScore < 3 && computerScore < 3) {
+
+        cout << "Enter your move: ";
+        unsigned short userHand;
+        cin >> userHand;
+
+        // Sets the computers hand according the questions conditions (0: SCISSORS, 1: ROCK, 2: PAPER)
+        unsigned short computerHand = rand() % 3;
+
+        // Switch to handle each of the user's choices. Nested IF statement deals with whether the user won, lost or
+        // drew. Score counters increase if a player wins.
+        switch (userHand) {
+            case 0:
+                if (computerHand == 2) {
+                    cout << "You won! Your SCISSORS beat the computer's PAPER!" << endl;
+                    userScore++;
+                } else if (computerHand == 1) {
+                    cout << "You lost! Your SCISSORS fell to the computer's ROCK!" << endl;
+                    computerScore++;
+                } else if (computerHand == userHand)
+                    cout << "You drew! The computer also used SCISSORS!" << endl;
+                break;
+
+            case 1:
+                if (computerHand == 0) {
+                    cout << "You won! Your ROCK beat the computer's SCISSORS!" << endl;
+                    userScore++;
+                } else if (computerHand == 2) {
+                    cout << "You lost! Your ROCK fell to the computer's PAPER!" << endl;
+                    computerScore++;
+                } else if (computerHand == userHand)
+                    cout << "You drew! The computer also used ROCK!" << endl;
+                break;
+
+            case 2:
+                if (computerHand == 1) {
+                    cout << "You won! Your PAPER beat the computer's ROCK" << endl;
+                    userScore++;
+                } else if (computerHand == 0) {
+                    cout << "You lost! Your PAPER fell to the computer's SCISSORS!" << endl;
+                    computerScore++;
+                } else if (computerHand == userHand)
+                    cout << "You drew! The computer also used PAPER!" << endl;
+                break;
+
+            default:
+                cout << "This match encountered an error. Please play again." << endl;
+                break;
+        }
+
+        cout << "Score | User: " << userScore << " | Computer: " << computerScore << " |\n";
+        // End of WHILE loop
+    }
 }
 
 void Chapter4Exercises::Exercise4_35() {
 
-    /* ( difficulty)
+    /* (* difficulty)
      *
+     * You can prove that the following summation is 24:
      *
+     *      1/(1 + sqrt[2]) + 1/(sqrt[2] + sqrt[3]) + 1/(sqrt[3] + sqrt[4]) + ... + 1/(sqrt[624]+sqrt[625])
+     *
+     * Write a program to verify your result.
      */
+
+    using namespace std;
+
+    double summation = 0;
+
+    for (int i = 1; i < 625; i++) {
+
+        summation += 1 / (pow(i, 0.5) + pow(i+1, 0.5));
+    }
+
+    cout << summation;
 }
 
 void Chapter4Exercises::Exercise4_36() {
 
-    /* ( difficulty)
+    /* (** difficulty)
      *
-     *
+     * Use loops to simplify Exercise 3.17
      */
 }
 
