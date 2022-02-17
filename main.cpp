@@ -14,7 +14,7 @@ int main() {
     Chapter4Listings Ch4L;
     Chapter4Exercises Ch4Ex;
 
-    Ch4Ex.Exercise4_35();
+    Ch4Ex.Exercise4_42();
 
     return 0;
 }

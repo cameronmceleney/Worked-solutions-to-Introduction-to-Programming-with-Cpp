@@ -60,9 +60,9 @@ public:
     void Exercise4_38();            // (Financial application: finding the sales amount)
     void Exercise4_39();            // (Occurrence of max numbers)
 
-    void Exercise4_40();            //
-    void Exercise4_41();            //
-    void Exercise4_42();            //
+    void Exercise4_40();            // (Simulation: head or tail)
+    void Exercise4_41();            // (Simulation: clock count down)
+    void Exercise4_42();            // (Monte Carlo simulation: clock countdown)
 };
 
 

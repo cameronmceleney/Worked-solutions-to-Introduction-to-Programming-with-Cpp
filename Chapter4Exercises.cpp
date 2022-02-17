@@ -1822,31 +1822,334 @@ void Chapter4Exercises::Exercise4_36() {
     /* (** difficulty)
      *
      * Use loops to simplify Exercise 3.17
+     *
+     * Note: This exercise was solved using my solution to Exercise 3.17
      */
+
+    using namespace std;
+
+    // I believe a single number is easier to input that a 9 digit space separated list
+    cout << "Enter the first nine digits as integers of your ISBN: ";
+    int inputDigits;
+    cin >> inputDigits;
+
+    int checkSum = 0; // What will hold the total of Sum[d_n * n] % 11
+    cout << "Your ISBN is: ";
+
+    for (int digit = 1; digit <= 9; digit++) {
+        // Finds each ISBN digit. Written using pow(10, n) to illustrate finding the digits in base10 system.
+        int digitValue = inputDigits / static_cast<int>(pow(10, 9 - digit)) % 10;
+        checkSum += digitValue * digit;
+
+        if (digit == 1 || digit == 3)
+            // Add correct formatting
+            cout << digitValue << "-";
+        else
+            cout << digitValue;
+    }
+
+    // Finds the 10th digit, which is found by doing a 'checksum' of the other 9 digits
+    checkSum %= 11;
+
+    if (checkSum == 10)
+        // Output format with hyphens is from standard ISBN10 formatting.
+        cout << "-X" << endl;
+    else
+        cout << "-" << checkSum << endl;
 }
 
 void Chapter4Exercises::Exercise4_37() {
 
-    /* ( difficulty)
+    /* (* difficulty)
+     *
+     * You have just started a sales job in a department store. Your pay consists of a base salary and a commission. The
+     * base salary is $5,000. The scheme shown below is used to determine the commission rate.
      *
      *
+     *                                  Sales Amount                  Commission Rate
+     *                                  $0.01 - $5,000                8 percent
+     *                                  $5,000.01 - $10,0000          10 percent
+     *                                  $10,000.01 and above          12 percent
+     *
+     * Your goal is to earn £30,000 a year. Write a program that finds out the minimum amount of sales you have to
+     * generate in order to make $30,000.
      */
+
+    using namespace std;
+
+    // All variables are in dollars. Reduce value of individualSale to increase precision of finding targetSalary
+    const double BASE_SALARY = 5000.0, individualSale = 1.0, targetSalary = 30000;
+
+    double salary = BASE_SALARY; // Compute salary
+
+    double totalSales = 0;
+    while (salary <= targetSalary) {
+        totalSales += individualSale;
+
+        if (totalSales <= 5000) {
+            salary += 0.08 * individualSale;
+        } else if (totalSales <= 10000) {
+            salary += 0.1 * individualSale;
+        } else {
+            salary += 0.12 * individualSale;
+        }
+    }
+
+    cout << fixed << setprecision(2)
+         << "For a salary of $" << salary
+         << ", one must generate $" << totalSales << " in sales,"
+         << " with a base salary of $" << BASE_SALARY << endl;
 }
 
 void Chapter4Exercises::Exercise4_38() {
 
-    /* ( difficulty)
+    /* (* difficulty)
      *
+     * Rewrite Exercise 4.37 as follows:
+     *      - Use a FOR loop instead of a do-while loop
+     *      - Let the user enter COMMISSION_SOUGHT instead of fixing it as a constant.
      *
+     * Note: I used a FOR loop the first time in Exercise 4.37, so I'll only be needing to add the second part. This
+     * question was very vague in changes to be made; not worth lingering on.
      */
+
+    using namespace std;
+
+    // All variables are in dollars. Reduce value of individualSale to increase precision of finding targetSalary
+    const double BASE_SALARY = 5000.0, individualSale = 1.0, targetSalary = 30000;
+    double salary = BASE_SALARY; // Compute salary
+
+    cout << "Enter the commission you receive: ";
+    double commissionSought;
+    cin >> commissionSought;
+
+    double totalSales = 0;
+    while (salary <= targetSalary) {
+        totalSales += individualSale;
+
+        if (totalSales <= 5000) {
+            salary += 0.08 * individualSale;
+        } else if (totalSales <= 10000) {
+            salary += 0.1 * individualSale;
+        } else {
+            salary += commissionSought * individualSale;
+        }
+    }
+
+    cout << fixed << setprecision(2)
+         << "For a salary of $" << salary
+         << ", one must generate $" << totalSales << " in sales,"
+         << " with a base salary of $" << BASE_SALARY << endl;
 }
 
 void Chapter4Exercises::Exercise4_39() {
 
-    /* ( difficulty)
+    /* (** difficulty)
      *
+     * Write a program that reads integers, finds the largest of them, and counts its occurrences. Assume that the input
+     * ends with the number 0. Suppose that you entered 3 5 2 5 5 0; the program finds that the largest is 5 and the
+     * occurrence count for 5 is 4.
      *
+     * (Hint: Maintain two variables max and count. max stores the current max number,
+     * and count stores its occurrences. Initially, assign the first number to max and 1 to count. Compare each
+     * subsequent number with max. If the number is greater than max, assign it to max and reset count to 1. If
+     * the number is equal to max, increment count by 1.
      */
+
+    using namespace std;
+
+    int count = 0, max = 0, inputInteger;
+
+    // Prompt user for space separated list
+    cout << "\nEnter a space-separated list of integers to find the largest int, and its frequency.\n"
+         << "An input of 0 (zero) ends the program.\n";
+    cout << "Enter numbers: ";
+
+    do {
+        // Loops until a zero is entered
+        cin >> inputInteger;
+
+        if (max < inputInteger) {
+            // Sets max to new largest integer, and reset count to 1
+            max = inputInteger;
+            count = 1;
+        } else if (max == inputInteger)
+            // Increments count when another instance of current max is found
+            count++;
+
+    } while (inputInteger != 0);
+
+    // Output to console in format of question
+    cout << "The largest number is " << max << '\n'
+         << "The occurrence count of the largest number is " << count << '\n';
+}
+
+void Chapter4Exercises::Exercise4_40() {
+
+    /* (- difficulty)
+     *
+     * Write a program that simulates flipping a coin one million times and displays the number of heads and tails.
+     */
+
+    using namespace std;
+
+    srand(time(0));
+
+    const int TOTAL_FLIPS = 1000000;
+
+    // Let a 0 represent HEADS and a 1 represent TAILS on the random number generator
+    int flipResult = 0, totalHeads = 0, totalTails = 0;
+
+    int iFlips = 0;
+    while (iFlips++ < TOTAL_FLIPS) {
+        // Test loop-continuation-condition, then iterate flip counter
+        flipResult = rand() % 2;
+
+        if (flipResult == 0)
+            totalHeads++;
+        else
+            totalTails++;
+    }
+
+    // Output to console
+    cout << "There were " << totalHeads << " heads, and "
+         << totalTails << " tails, after " << TOTAL_FLIPS << " flips.\n";
+}
+
+void Chapter4Exercises::Exercise4_41() {
+
+    /* (* difficulty)
+     *
+     * Write a program that prompts the user to enter the number of seconds to be counted down. Display a message
+     * each second of the countdown and include an additional warning every 5 seconds. Terminate when time expires.
+     * Here is a sample run:
+     *
+     *                      Enter number of seconds: 6
+     *                      6 seconds remaining
+     *                      Warning: 5 seconds remaining!
+     *                      4 seconds remaining
+     *                      3 seconds remaining
+     *                      2 seconds remaining
+     *                      1 second remaining
+     *                      Time up!
+     */
+
+    using namespace std;
+
+    cout << "\nEnter number of seconds: ";
+    int seconds;
+    cin >> seconds;
+
+    do {
+        // seconds functions as the loop iterator, and is decremented at the end of the do-while loop
+        if (seconds % 5 == 0)
+            cout << "Warning: " << seconds << " seconds remaining!\n";
+        else if (seconds == 1)
+            cout << seconds << " second remaining\n";
+        else
+            cout << seconds << " seconds remaining\n";
+    } while (--seconds != 0);
+
+    cout << "Time up!\n";
+}
+
+void Chapter4Exercises::Exercise4_42() {
+
+    /* (** difficulty)
+     *
+     * A square is divided into four smaller regions as shown below in (a). If you throw a dart into the square
+     * 1,000,000 times, what is the probability for a stone to fall into the odd region? Write a program to simulate
+     * the process and display the result
+     *
+     * (Hint: Place the center of the square in the center of a coordinate system, as shown in (b). Randomly generate
+     * a point in the square and count the number of times for a point to fall in the odd region.
+     *
+     * Note: For help on how to find points in a triangle try:
+     *      - https://discuss.codechef.com/t/best-way-to-check-if-a-point-lies-inside-a-triangle-or-not/13528/3
+     *      - https://stackoverflow.com/a/51479401
+     */
+
+    using namespace std;
+
+    srand(time(0));
+    // Will make a 10x10 region with the center at (5,5).
+
+    const int TOTAL_THROWS = 1000000, REGION_WIDTH = 5;
+    const double x_centre = 5.0, y_centre = 5;
+
+    int hitsRegion1 = 0, hitsRegion2 = 0, hitsRegion3 = 0, hitsRegion4 = 0;
+
+    int throws = 1;
+    while (throws <= TOTAL_THROWS) {
+
+        double xPoint = (double)rand() * (REGION_WIDTH * 2) / (double)RAND_MAX;
+        double yPoint = (double)rand() * (REGION_WIDTH * 2) / (double)RAND_MAX;
+
+
+
+        if (xPoint < REGION_WIDTH)
+            // Checks for region 1
+            hitsRegion1++;
+
+
+
+        /* Assume that p1, p2, p3 are ordered in counterclockwise, then we can check if p lies at left of the 3 oriented
+         * edges [p1, p2], [p2, p3] and [p3, p1], if all the dot products are of the same sign then p is on the same side
+         * of all, and thus inside. For that, consider 3 vectors v1, v2 and v3 that are respectively left-orthogonal to
+         * [p1, p2], [p2, p3] and [p3, p1].
+         */
+
+
+
+        double dot1Region2 = (REGION_WIDTH - (REGION_WIDTH * 2)) * (xPoint - REGION_WIDTH)
+                           + (-(REGION_WIDTH * 2) + REGION_WIDTH) * (yPoint - (REGION_WIDTH * 2));
+
+        double dot2Region2 = ((REGION_WIDTH * 2) - REGION_WIDTH) * (xPoint - (REGION_WIDTH * 2))
+                           + (-(REGION_WIDTH * 2) + (REGION_WIDTH * 2)) * (yPoint - REGION_WIDTH);
+
+        double dot3Region2 = ((REGION_WIDTH * 2) - (REGION_WIDTH * 2)) * (xPoint - (REGION_WIDTH * 2))
+                           + (-REGION_WIDTH + (REGION_WIDTH * 2)) * (yPoint - (REGION_WIDTH * 2));
+
+        if ((dot1Region2 >= 0 && dot2Region2 >= 0 && dot3Region2 >= 0) ||
+            (dot1Region2 <= 0 && dot2Region2 <= 0 && dot3Region2 <= 0))
+            /* For Region2: the top-centre point is p1; the furthest right point is p2; the top-right point (at the right
+             * angle) is p3.
+             */
+            hitsRegion2++;
+
+
+
+        double dot1Region3 = (REGION_WIDTH - (REGION_WIDTH * 2)) * (xPoint - REGION_WIDTH)
+                           + (-REGION_WIDTH + REGION_WIDTH) * (yPoint - (REGION_WIDTH * 2));
+
+        double dot2Region3 = (REGION_WIDTH - REGION_WIDTH) * (xPoint - REGION_WIDTH) + (-(REGION_WIDTH * 2)
+                           + REGION_WIDTH) * (yPoint - REGION_WIDTH);
+
+        double dot3Region3 = ((REGION_WIDTH * 2) - REGION_WIDTH) * (xPoint - (REGION_WIDTH * 2))
+                           + (-REGION_WIDTH + (REGION_WIDTH * 2)) * (yPoint - REGION_WIDTH);
+
+        if ((dot1Region3 >= 0 && dot2Region3 >= 0 && dot3Region3 >= 0) ||
+            (dot1Region3 <= 0 && dot2Region3 <= 0 && dot3Region3 <= 0))
+            /* For Region3: the top-centre point is p1; the centre-point (at the right angle) is p2; the furthest right
+             * point is p3.
+             */
+            hitsRegion3++;
+
+
+
+        if (xPoint >= REGION_WIDTH && yPoint < REGION_WIDTH)
+            // Checks for region 4
+            hitsRegion4++;
+
+        throws++;
+    }
+
+    cout << "\nHits are as follows for " << TOTAL_THROWS << " throws:\n\n"
+         << "Region 1: " << hitsRegion1 << " hits\n"
+         << "Region 2: " << hitsRegion2 << " hits\n"
+         << "Region 3: " << hitsRegion3 << " hits\n"
+         << "Region 4: " << hitsRegion4 << " hits\n";
+
 }
 
 
