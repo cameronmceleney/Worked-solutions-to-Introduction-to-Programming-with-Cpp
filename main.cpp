@@ -16,7 +16,7 @@ int main() {
     Chapter4Exercises Ch4Ex;
     Chapter5Listings Ch5L;
 
-    Ch5L.L5_1_MAIN();
+    Ch5L.TestFunctionOverloading();
 
     return 0;
 }
