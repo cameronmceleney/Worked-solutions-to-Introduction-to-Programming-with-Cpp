@@ -192,3 +192,146 @@ int Chapter5Listings::TestFunctionOverloading() {
 
     return 0;
 }
+
+int Chapter5Listings::L5_7_max(int num1, int num2){
+    // Return the max between two int values
+    if (num1 > num2)
+        return num1;
+    else
+        return num2;
+}
+double Chapter5Listings::L5_7_max(double num1, double num2) {
+    // Find the max between two double values
+    if (num1 > num2)
+        return num1;
+    else
+        return num2;
+}
+double Chapter5Listings::L5_7_max(double num1, double num2, double num3) {
+    // Return the max among three double values
+    return L5_7_max(max(num1, num2), num3);
+}
+int Chapter5Listings::TestFunctionPrototype() {
+    // This method acts as main() for Listing 5.7 and is the book's version
+
+    // Invoke the max function with in parameters
+    cout << "The maximum between 3 ane 4 is " << L5_7_max(3,4) << endl;
+
+    // Invoke the max function with the double parameters
+    cout << "The maximum between 3.0 and 5.4 is " << L5_7_max(3.0, 5.4) << endl;
+
+    // Invoke the max function with three double parameters
+    cout << "The maximum between 3.0, 5.4, and 10.14 is " << L5_7_max(3.0, 5.4, 10.14) << endl;
+
+    return 0;
+}
+
+bool Chapter5Listings::L5_8_isEven(int number) {
+    // Test if argument is even
+    return (number % 2 == 0);
+}
+int Chapter5Listings::UseMyLib() {
+    // This method acts as main() for Listings 5.8 & 5.9, and is the book's version
+
+    // Use conditional statement to output if the numbers '4' and '5' are even
+    cout << (L5_8_isEven(4) ? "true" : "false") << endl;
+    cout << (L5_8_isEven(5) ? "true" : "false") << endl;
+
+    return 0;
+}
+
+bool Chapter5Listings::L5_10_isEven(int number) {
+    // Test if argument is even
+    return (number % 2 == 0);
+}
+int Chapter5Listings::MyLib() {
+    // This method acts as main() for Listings 5.10 & 5.11, and is the book's version
+
+    // Use conditional statement to output if the numbers '4' and '5' are even
+    cout << (L5_10_isEven(4) ? "true" : "false") << endl;
+    cout << (L5_10_isEven(5) ? "true" : "false") << endl;
+
+    return 0;
+}
+
+char Chapter5Listings::L5_12_getRandomCharacter(char ch1, char ch2) {
+    // Generate a random character between ch1 and ch2
+    return static_cast<char>(ch1 + rand() % (ch2 - ch1 + 1));
+}
+char Chapter5Listings::L5_12_getRandomLowerCaseLetter() {
+    // Generate a random lowercase letter
+    return L5_12_getRandomCharacter('a', 'z');
+}
+char Chapter5Listings::L5_12_getRandomUpperCaseLetter() {
+    // Generate a random uppercase letter
+    return L5_12_getRandomCharacter('A', 'Z');
+}
+char Chapter5Listings::L5_12_getRandomDigitCharacter() {
+    // Generate a random digit letter
+    return L5_12_getRandomCharacter('0', '9');
+}
+char Chapter5Listings::L5_12_getRandomCharacter() {
+    // Generate a random digit character
+    return L5_12_getRandomCharacter(0, 127);
+}
+int Chapter5Listings::TestRandomCharacter() {
+    // This method acts as main() for Listings 5.12 & 5.13, and is the book's version
+
+    const int NUMBER_OF_CHARS = 175;
+    const int CHARS_PER_LINE = 25;
+
+    srand(time(0));
+
+    // Print random characters between '!' and '~', 25 chars per line
+    for (int i = 0; i < NUMBER_OF_CHARS; i++) {
+        char ch = L5_12_getRandomLowerCaseLetter();
+        if ((i + 1) % CHARS_PER_LINE == 0)
+            cout << ch << endl;
+        else
+            cout << ch;
+    }
+    return 0;
+}
+
+int Chapter5Listings::MathFunctions() {
+    // This method acts as main() for Listing 5.14, and is the book's version
+    const double PI = 3.14159;
+
+    // Test trigonometric functions
+    cout << "sin(PI / 2) = " << sin(PI / 2) << endl;
+    cout << "cos(PI / 2) = " << cos(PI / 2) << endl;
+    cout << "tan(PI / 2) = " << tan(PI / 2) << endl;
+
+    // Test algebraic functions
+    cout << "exp(1.0) = " << exp(1.0) << endl;
+    cout << "log(2.78) = " << log(2.78) << endl;
+    cout << "log10(10.0) = " << log10(10.0) << endl;
+    cout << "sqrt(4.0) = " << sqrt(4.0) << endl;
+    cout << "pow(2.5, 2.5) = " << pow(2.5, 2.5) << endl;
+
+    return 0;
+}
+
+int Chapter5Listings::CharacterFunctions() {
+    // This method acts as main() for Listings 5.15, and is the book's version
+
+    cout << "Enter a character: ";
+    char ch;
+    cin >> ch;
+
+    cout << "You entered \'" << ch << "\'" << endl;
+
+    if (islower(ch)) {
+        // Test if ch is lowercase
+        cout << "It is a lowercase letter" << endl;
+        cout << "Its equivalent uppercase letter is \'" << static_cast<char>(toupper(ch)) << "\'" << endl;
+    } else if (isupper(ch)) {
+        // Test if ch is uppercase
+        cout << "Is is an uppercase letter" << endl;
+        cout << "Its equivalent lowercase letter is \'" << static_cast<char>(tolower(ch)) << "\'" << endl;
+    } else if (isdigit(ch)) {
+        cout << "It is a digit character" << endl;
+    }
+
+    return 0;
+}
