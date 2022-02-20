@@ -56,9 +56,18 @@ private:
     // Functions for Exercise 5.14
     double E5_14_computeTax(int status, double taxableIncome);
 
+    // Functions for Exercise 5.15
+    int E5_15_numberOfDaysInAYear(int year);
+
+    // Functions for Exercise 5.16
+    void E5_16_printMatrix(int n);
+
+    // Functions for Exercise 5.17
+    double E5_17_maxRand(int num);
+
 public:
 
-    // Covers content from Sections 5.2 - 4.11
+    // Covers content from Sections 5.2 - 5.11
     int Exercise5_1();                  // (Math: pentagonal numbers)
     int Exercise5_2();                  // (Summing the digits in an integer)
     int Exercise5_3();                  // (Returning the sum of digits in a number)
@@ -73,6 +82,11 @@ public:
     int Exercise5_12();                 // (Summing series)
     int Exercise5_13();                 // (Computing series)
     int Exercise5_14();                 // (Financial application: print a tax table)
+    int Exercise5_15();                 // (Number of days in a year)
+    int Exercise5_16();                 // (Displaying matrix of 0s and 1s)
+
+    // Covers content from SEction 5.12
+    int Exercise5_17();                 // (Generating random numbers and finding the maximum value)
 };
 
 

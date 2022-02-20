@@ -611,8 +611,72 @@ double Chapter5Exercises::E5_14_computeTax(int status, double taxableIncome) {
     // Listing 3.4 for details
 
     double payableTax = 0;
+    unsigned int taxRateBand1, taxRateBand2, taxRateBand3, taxRateBand4, taxRateBand5;
 
-    // Function body
+    // Sets the tax band (upper) limits based upon the filing status of the user
+    switch (status) {
+        // Calculate tax band limits for 'Single Filers'
+        case 0:
+            taxRateBand1 = 6000;
+            taxRateBand2 = 27950;
+            taxRateBand3 = 67700;
+            taxRateBand4 = 141250;
+            taxRateBand5 = 307050;
+            break;
+
+        case 1:
+            // Calculate tax band limits for 'Married Filing Jointly' or 'Qualifying Widow/Widower'
+            taxRateBand1 = 12000;
+            taxRateBand2 = 46700;
+            taxRateBand3 = 112850;
+            taxRateBand4 = 171950;
+            taxRateBand5 = 307050;
+            break;
+
+        case 2:
+            // Calculate tax band limits for 'Married Filing Separately'
+            taxRateBand1 = 6000;
+            taxRateBand2 = 23350;
+            taxRateBand3 = 56425;
+            taxRateBand4 = 85975;
+            taxRateBand5 = 153525;
+            break;
+
+        case 3:
+            // Calculate tax band limits for 'Head of Household'
+            taxRateBand1 = 10000;
+            taxRateBand2 = 37450;
+            taxRateBand3 = 96700;
+            taxRateBand4 = 156600;
+            taxRateBand5 = 307050;
+            break;
+
+        default:
+            cout << "\nERROR. The status that you entered was incorrect. Exiting..." << endl;
+            exit(0);
+    }
+
+
+    /* Calculates the tax that must be paid. Normally would write this as a separate function, but for speed I just
+     * created it in this form within the class function */
+
+    if (taxableIncome <= taxRateBand1) {
+        payableTax = taxableIncome * 0.1;
+    } else if (taxableIncome <= taxRateBand2) {
+        payableTax = taxRateBand1 * 0.1 + (taxableIncome - taxRateBand1) * 0.15;
+    } else if (taxableIncome <= taxRateBand3) {
+        payableTax = taxRateBand1 * 0.1 + (taxRateBand2 - taxRateBand1) * 0.15 + (taxableIncome - taxRateBand2) * 0.27;
+    } else if (taxableIncome <= taxRateBand4) {
+        payableTax = taxRateBand1 * 0.1 + (taxRateBand2 - taxRateBand1) * 0.15 + (taxRateBand3 - taxRateBand2) * 0.27
+                     + (taxableIncome - taxRateBand3) * 0.3;
+    } else if (taxableIncome <= taxRateBand5) {
+        payableTax = taxRateBand1 * 0.1 + (taxRateBand2 - taxRateBand1) * 0.15 + (taxRateBand3 - taxRateBand2) * 0.27
+                     + (taxRateBand4 - taxRateBand3) * 0.3 + (taxableIncome - taxRateBand4) * 0.35;
+    } else {
+        payableTax = taxRateBand1 * 0.1 + (taxRateBand2 - taxRateBand1) * 0.15 + (taxRateBand3 - taxRateBand2) * 0.27
+                     + (taxRateBand4 - taxRateBand3) * 0.3 + (taxRateBand5 - taxRateBand4) * 0.35
+                     + (taxableIncome - taxRateBand5) * 0.386;
+    }
 
     return payableTax;
 }
@@ -638,6 +702,127 @@ int Chapter5Exercises::Exercise5_14() {
      *
      *      59950          12533            9983            13190           11193
      *      60000          12546            9996            13205           11206
-     *      */
+     *
+     * (Note: This code was a direct copy of Listing 3.4 (my solution) followed by some minor adaptations
+     */
+
+    const int MINIMUM_INCOME = 50000, MAXIMUM_INCOME = 60000, INCREMENT_INCOME = 50, SPACING_WIDTH = 12;
+
+    // Creates table header
+    cout << left << fixed << setprecision(0);
+    cout << setw(SPACING_WIDTH) << "Taxable" << setw(SPACING_WIDTH) << "Single" << setw(SPACING_WIDTH) << "Married" << setw(SPACING_WIDTH) << "Married" << setw(SPACING_WIDTH) << "Head of" << '\n'
+         << setw(SPACING_WIDTH) << "Income"  << setw(SPACING_WIDTH) << ' '      << setw(SPACING_WIDTH) << " Joint"   << setw(SPACING_WIDTH) << "Separate"<< setw(SPACING_WIDTH) << "a House" << "\n\n";
+
+    for (double iIncome = MINIMUM_INCOME; iIncome <= MAXIMUM_INCOME; iIncome += INCREMENT_INCOME) {
+
+        cout << setw(SPACING_WIDTH) << iIncome;
+        for (int filingStatus = 0; filingStatus < 4; filingStatus++)
+            cout << setw(SPACING_WIDTH) << E5_14_computeTax(filingStatus, iIncome);
+        cout << '\n';
+    }
+
+    return 0;
+}
+
+int Chapter5Exercises::E5_15_numberOfDaysInAYear(int year) {
+    // Returns the number of days in a given year
+
+    // Equation from Exercise 3.18 to test whether a year is a leap year
+    int totalDaysInYear = ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) ? 366 : 365;
+
+    return totalDaysInYear;
+}
+int Chapter5Exercises::Exercise5_15() {
+
+    /* (* difficulty)
+     *
+     * Write a function that returns the number of days in a year using hte following header:
+     *
+     *          int numberOfDaysInAYear(int year);
+     *
+     * Write a test program that displays the number of days in a year 2000,..., and 2010.
+     */
+
+    const int STARTING_YEAR = 2000, FINAL_YEAR = 2010;
+
+    cout << left << setw(12) << "Year" << setw(24) << "Number of Days in Year" << "\n\n";
+
+    for (int year = STARTING_YEAR; year <= FINAL_YEAR; year++)
+        cout << setw(12) << year << setw(12) << ' ' << setw(12) << E5_15_numberOfDaysInAYear(year) << '\n';
+
+
+    return 0;
+}
+
+void Chapter5Exercises::E5_16_printMatrix(int n) {
+    // Displays an n by n matrix where each element is randomly 1 or 0
+
+    // Seed rand within function to ensure that each function call is unique
+    srand(time(0));
+
+    // Ensures correct formatting, and that matrix is printed on new line
+    cout << left << "\n\n";
+
+    for (int row = 0; row < n; row++) {
+        for (int column = 0; column < n; column++)
+            cout << rand() % 2 << '\t';
+        cout << '\n';
+    }
+
+    return;
+}
+int Chapter5Exercises::Exercise5_16() {
+
+    /* (* difficulty)
+     *
+     * Write a function that displays an n-by-n matrix using the following header:
+     *
+     *
+     *              void printMatrix(int n)
+     *
+     * Each element is 0 or 1, which is generated randomly. Writea test program that prints a 3-by-3 matrix that may
+     * look like this:
+     *
+     *              0   1   0
+     *              0   0   0
+     *              1   1   1
+     */
+
+    const int MATRIX_DIMENSION = 3;
+    E5_16_printMatrix(MATRIX_DIMENSION);
+
+    return 0;
+}
+
+double Chapter5Exercises::E5_17_maxRand(int num) {
+    // Generate a random list of floating-point numbers, and find the maximum
+
+    srand(time(0));
+    double largestNumber = 0.0;
+
+    cout << left << "\n";
+
+    for (int i = 0; i < num; i++) {
+
+        double randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX) * 1.0;
+        cout << setw(12) << randomNumber;
+
+        if (randomNumber > largestNumber)
+            largestNumber = randomNumber;
+    }
+
+    return largestNumber;
+}
+int Chapter5Exercises::Exercise5_17() {
+    /**/
+
+    cout << "Enter the number of random numbers to generate: ";
+    unsigned int totalNumbers;
+    cin >> totalNumbers;
+
+    double maxNumber = E5_17_maxRand(totalNumbers);
+    cout << "\n\nThe maximum number in the list of random numbers was " << maxNumber;
+
+    return 0;
 }
 
