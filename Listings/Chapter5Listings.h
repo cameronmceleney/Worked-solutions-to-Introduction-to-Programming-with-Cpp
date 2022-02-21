@@ -7,6 +7,7 @@
 #include <iostream>
 
 using namespace std; // All the book's functions use this namespace, so will give class scope for ease
+
 class Chapter5Listings {
 private:
     /* These functions are private to simplify the tooltip options in this software's main.cpp file. Moving them to
