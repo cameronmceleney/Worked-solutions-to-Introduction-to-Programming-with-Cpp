@@ -77,8 +77,16 @@ private:
     double E5_20_area(double side1, double side2, double side3); // Returns the area of the triangle
 
     // Functions for Exercise5.21. These functions' implementations should be copied into "NumericalAnalysis.h"
-    double E5_21_computeMean(double i, double n);
-    double E5_21_computeStandardDeviation();
+    // Exercise 5.21 should give an example of practices that we should seek to avoid when writing code
+    double E5_21_computeMean(int n, double num1, double num2, double num3, double num4,
+                      double num5, double num6, double num7, double num8, double num9,
+                      double num10);
+    double E5_21_computeStandardDeviation(int n, double num1, double num2, double num3, double num4,
+                                          double num5, double num6, double num7, double num8, double num9,
+                                          double num10);
+
+    // Functions for  Exercise 5.22
+    double E5_22_futureInvestmentValue(double investmentAmount, double monthlyInterestRate, int years);
 
 
 public:
@@ -109,6 +117,7 @@ public:
     int Exercise5_19();                 // (Using trigonometric functions)
     int Exercise5_20();                 // (The MyTriangle header)
     int Exercise5_21();                 // (Financial application: computing mean and standard deviation)
+    int Exercise5_22();                 // (Financial application: computing the future investment value)
 };
 
 

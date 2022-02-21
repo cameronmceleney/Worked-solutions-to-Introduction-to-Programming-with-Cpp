@@ -933,16 +933,115 @@ int Chapter5Exercises::Exercise5_20() {
     }
 }
 
-double Chapter5Exercises::E5_21_computeMean(double i, double n) {
-    // Computes the mean of a given dataset. 'i' us the starting value, and 'n' is the maximum
-    double mean = 0;
+double Chapter5Exercises::E5_21_computeMean(int n, double num1, double num2, double num3, double num4,
+                                            double num5, double num6, double num7, double num8, double num9,
+                                            double num10) {
+    // Finds the mean for 10 numbers
+    return (num1 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9 + num10) / n;
+}
+double Chapter5Exercises::E5_21_computeStandardDeviation(int n, double num1, double num2, double num3, double num4,
+                                                         double num5, double num6, double num7, double num8, double num9,
+                                                         double num10) {
+    // Computes the standard deviation
+    double SUMLHS = pow(num1, 2) + pow(num2, 2) + pow(num3, 2) + pow(num4, 2) + pow(num5, 2) + pow(num6, 2) +
+            pow(num7, 2) + pow(num8, 2) + pow(num9, 2) + pow(num10, 2);
+    double SUMRHS = pow((num1+num2+num3+num4+num5+num6+num7+num8+num9+num10), 2);
+    return sqrt( (SUMLHS - (SUMRHS) / n) / (n - 1) );
+}
+int Chapter5Exercises::Exercise5_21() {
 
-    // Function body
-    for (int x_i = i; x_i <= n; x_i++)
-        mean += x_i;
+    /* (** difficulty)
+     *
+     * In business applications, you are often asked to compute the mean and standard deviation of data. The mean is
+     * simply the average of the numbers. The standard deviation is a statistic that tells you how tightly all the
+     * various data in a set are clustered around the mean. For example, what is the average age of the students in a
+     * class? How close are the ages? If all the students are teh same age, the deviation is 0. Write a program that
+     * prompts the user to enter 10 numbers and computes the mean and standard deviation of these numbers using the
+     * following formulas:
+     *
+     *          mean =  SUM[i=1, n] x_i / n = (x1 + x2 + x3 + ... + x_n) / n   (this is meant to show sigma notation)
+     *
+     *          deviation = sqrt( ( (SUM[i=1, n] (x_i)**2) - ((SUM[i=1, n] x_i)**2 / n) ) / (n - 1) )
+     *
+     * Here is a sample run:
+     *
+     *              1 2 3 4 5 6 7 8 9 10
+     *              Mean = 5.61
+     *              Deviation = 2.99794
+     *
+     * (Note: This code is intentionally ugly, and messy. It is to show that one is able to 'brute force' a problem by
+     * hard-coding everything. However, this makes it difficult to read and allows for numerous places for errors to
+     * creep in)
+     */
+    const int MAX_NUMBER_OF_INPUTS = 10;
 
-    mean /= n;
+    cout << "Enter " << MAX_NUMBER_OF_INPUTS << " numbers: ";
+    double num1, num2, num3, num4, num5, num6, num7, num8, num9, num10;
+    cin >> num1 >> num2 >> num3 >> num4 >> num5 >> num6 >> num7 >> num8 >> num9 >> num10;
 
-    return mean;
+    cout << "The mean is " << fixed << setprecision(2) << E5_21_computeMean(MAX_NUMBER_OF_INPUTS, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10) << '\n';
+
+    cout << "The standard deviation is " << fixed << setprecision(5) << E5_21_computeStandardDeviation(MAX_NUMBER_OF_INPUTS, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10);
+
+    return 0;
+}
+
+double Chapter5Exercises::E5_22_futureInvestmentValue(double investmentAmount, double monthlyInterestRate, int years) {
+    // Calculates the future investment value for a given rate over a specified number of years.
+
+    int numberOfPaymentMonths = years * 12;
+    double futureValue =  investmentAmount * pow((1.0 + monthlyInterestRate), numberOfPaymentMonths)
+                          - 1.0 / numberOfPaymentMonths;
+
+    return futureValue;
+}
+int Chapter5Exercises::Exercise5_22() {
+
+    /* (* difficulty)
+     *
+     * Write a function that computes future investment value at a given interest rate for a specified number of years.
+     * The future investment is determined using the formula in Exercise 2.11. Use the following function header:
+     *
+     *          double futureInvestmentValue(double investmentAmount, double monthlyInterestRate, double years);
+     *
+     * For example futureInvestmentValue(10000, 0.05/12, 5) returns 12833.59 .
+     *
+     * Write a test program that prompts the user to enter the investment amount (e.g. 1000) and the interest rate
+     * (e.g. 9%), and prints a table that displays future value for the years from 1 to 30, as shown below:
+     *
+     *              The amount invested: 1000
+     *              Annual interest rate: 9
+     *              Years           Future Value
+     *              1               1093.8
+     *              2               1196.41
+     *
+     *              ...             ...
+     *
+     *              29              13467.25
+     *              30              14730.57
+     */
+
+    const int MAX_YEARS = 30;
+
+    // Prompt user for input with given examples to show they can enter doubles as values
+    cout << "The amount invested (e.g. 1000.00): ";
+    double amountToInvest;
+    cin >> amountToInvest;
+
+    cout << "Annual interest rate (e.g. 9 for 9%): ";
+    double annualInterestRate;
+    cin >> annualInterestRate;
+    double monthlyInterestRate = annualInterestRate / 1200.0;
+
+    // Create table header
+    cout << left << fixed << setprecision(2)
+         << setw(12) << "Years" << setw(12) << "Future Value" << "\n\n";
+
+    // Calculate, and output to console, the value of the investment after each time period
+    for (int currentYear = 1; currentYear <= MAX_YEARS; currentYear++) {
+        cout << setw(12) << currentYear << setw(12) << E5_22_futureInvestmentValue(amountToInvest, monthlyInterestRate, currentYear) << "\n";
+    }
+
+    return 0;
 }
 
