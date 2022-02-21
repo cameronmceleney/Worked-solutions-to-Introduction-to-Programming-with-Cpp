@@ -65,6 +65,22 @@ private:
     // Functions for Exercise 5.17
     double E5_17_maxRand(int num);
 
+    // Functions for Exercise 5.18
+    // Intentionally blank
+
+    // Functions for Exercise 5.19
+    // Intentionally blank
+
+    // Functions for Exercise 5.20. These functions' implementations should be copied into "MyTriangle.h"
+    bool E5_20_isValid(double side1, double side2, double side3); /* Returns true if the sum of any two sides is
+                                                                   * greater than the third side */
+    double E5_20_area(double side1, double side2, double side3); // Returns the area of the triangle
+
+    // Functions for Exercise5.21. These functions' implementations should be copied into "NumericalAnalysis.h"
+    double E5_21_computeMean(double i, double n);
+    double E5_21_computeStandardDeviation();
+
+
 public:
 
     // Covers content from Sections 5.2 - 5.11
@@ -85,8 +101,14 @@ public:
     int Exercise5_15();                 // (Number of days in a year)
     int Exercise5_16();                 // (Displaying matrix of 0s and 1s)
 
-    // Covers content from SEction 5.12
+    // Covers content from Section 5.12
     int Exercise5_17();                 // (Generating random numbers and finding the maximum value)
+
+    // Covers content from Section 5.12
+    int Exercise5_18();                 // (Using the sqrt function)
+    int Exercise5_19();                 // (Using trigonometric functions)
+    int Exercise5_20();                 // (The MyTriangle header)
+    int Exercise5_21();                 // (Financial application: computing mean and standard deviation)
 };
 
 

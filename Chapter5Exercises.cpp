@@ -60,7 +60,7 @@ int Chapter5Exercises::Exercise5_2() {
      *
      * (Hint: Use the % operator to extract a digit and the / operator to remove the extracted digit, for instance, to
      * extract 4 from 234, use 234 % 10 (=4). To remove 4 from 234, use 234 / 10 (=23). Use a loop to repeatedly
-     * extract and remove a digit until all digits are extracted.
+     * extract and remove a digit until all digits are extracted.)
     */
 
     cout << "Enter a positive integer: ";
@@ -824,5 +824,125 @@ int Chapter5Exercises::Exercise5_17() {
     cout << "\n\nThe maximum number in the list of random numbers was " << maxNumber;
 
     return 0;
+}
+
+int Chapter5Exercises::Exercise5_18() {
+
+    /* (- difficultY)
+     *
+     * Write a program that prints the following table using the sqrt function:
+     *
+     *              Number              SquareRoot
+     *              0                   0.0000
+     *              2                   1.4142
+     *             ...                   ...
+     *              18                  4.2426
+     *              20                  4.4721
+     */
+
+    // Create table header
+    cout << left << fixed << setprecision(4)
+         << setw(12) << "Number" << setw(12) << "SquareRoot" << '\n';
+
+    for (int i = 0; i <= 20; i+=2)
+        cout << setw(24) << i << setw(12) << sqrt(i) << '\n';
+
+    return 0;
+}
+
+int Chapter5Exercises::Exercise5_19() {
+
+    /* (- difficulty)
+     *
+     * Print the following table to display the sine value and cosine value of degrees from 0 to 360 with increments
+     * of 10 degrees. Round the value to keep four digits after the decimal point.
+     *
+     *              Degree          Sin             Cos
+     *              0               0.0000          1.0000
+     *              10              0.1736          0.9848
+     *
+     *              ...             ...             ...
+     *
+     *              350             -0.1736         0.9848
+     *              360             0.0000          1.0000
+     */
+
+    cout << left
+         << setw(12) << "Degrees" << setw(12) << "Sin" << setw(12) << "Cos" << "\n\n";
+
+    for (double degrees = 0; degrees <= 360; degrees += 10) {
+        // Default output for TRIG functions is in radians, so need to convert our degrees before supplying as a
+        // parameter. M_PI, and the TRIG functions, come from <cmath>
+        double RadsToDegrees = degrees * M_PI / 180;
+
+        cout << fixed << setprecision(0) <<  setw(12) << degrees
+             << fixed << setprecision(4) << setw(12) << sin(RadsToDegrees) << setw(12) << cos(RadsToDegrees)
+             << "\n";
+    }
+
+    return 0;
+}
+
+bool Chapter5Exercises::E5_20_isValid(double side1, double side2, double side3) {
+    // Returns true if the sum of any two sides is greater than the third side
+
+    // The argument of the IF statement comes from the 'Triangle Inequality Theorem'
+    if ((side1 + side2 > side3) &&
+        (side2 + side3 > side1) &&
+        (side3 + side1 > side2))
+        return true;
+    else
+        return false;
+}
+double Chapter5Exercises::E5_20_area(double side1, double side2, double side3) {
+    // Returns the area of the triangle. Formulae are from Exercise 2.19
+    double s = (side1 + side2 + side3) / 2;
+
+    return sqrt(s * (s - side1) * (s - side2) * (s - side3));
+}
+int Chapter5Exercises::Exercise5_20() {
+
+    /* (* difficulty)
+     *
+     * Create a header file named MyTriangle.h that contains the following two functions:
+     *
+     *      / Returns true if the sum of any two sides is greater than the third side /
+     *      bool isValid(double side1, double side2, double side3)'
+     *
+     *      / Returns the area of the triangle /
+     *      double area(double side1, double side2, double side3);
+     *
+     * The formula for computing the area is given in Exercise 2.19. Implement the header file and write a test program
+     * that reads three sides for a triangle and computes the area if the input is valid. Otherwise, display that the
+     * input is invalid
+     */
+
+    // #include "MyTriangle.h"
+
+    cout << "Enter the three sides of the triangle as floats: ";
+    double side1, side2, side3;
+    cin >> side1 >> side2 >> side3;
+
+    if (E5_20_isValid(side1, side2, side3)) {
+        cout << "The input is valid.\n"
+             << "The area of the triangle is " << E5_20_area(side1, side2, side3);
+        return 0;
+    } else {
+        cout << "The input is invalid.\n";
+        return 0;
+    }
+}
+
+double Chapter5Exercises::E5_21_computeMean(double i, double n) {
+    // Computes the mean of a given dataset. 'i' us the starting value, and 'n' is the maximum
+    double mean = 0;
+
+    // Function body
+    for (int x_i = i; x_i <= n; x_i++)
+        mean += x_i;
+
+    mean /= n;
+
+    return mean;
 }
 

@@ -18,7 +18,7 @@ int main() {
     Chapter5Listings Ch5L;
     Chapter5Exercises Ch5E;
 
-    Ch5E.Exercise5_17();
+    Ch5E.Exercise5_20();
 
     return 0;
 }
