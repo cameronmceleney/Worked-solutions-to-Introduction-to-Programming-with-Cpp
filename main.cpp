@@ -1,11 +1,11 @@
-#include "Chapter2Listings.h"
-#include "Chapter2Exercises.h"
-#include "Chapter3Listings.h"
-#include "Chapter3Exercises.h"
-#include "Chapter4Listings.h"
-#include "Chapter4Exercises.h"
-#include "Chapter5Listings.h"
-#include "Chapter5Exercises.h"
+#include "Listings/Chapter2Listings.h"
+#include "Exercises/Chapter2Exercises.h"
+#include "Listings/Chapter3Listings.h"
+#include "Exercises/Chapter3Exercises.h"
+#include "Listings/Chapter4Listings.h"
+#include "Exercises/Chapter4Exercises.h"
+#include "Listings/Chapter5Listings.h"
+#include "Exercises/Chapter5Exercises.h"
 
 int main() {
 

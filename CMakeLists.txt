@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(TestLocationLocalforCpp
         main.cpp
-        Chapter2Listings.cpp Chapter2Listings.h
-        Chapter2Exercises.cpp Chapter2Exercises.h
-        Chapter3Listings.cpp Chapter3Listings.h
-        Chapter3Exercises.cpp Chapter3Exercises.h
-        Chapter4Listings.cpp Chapter4Listings.h
-        Chapter4Exercises.cpp Chapter4Exercises.h
-        Chapter5Listings.cpp Chapter5Listings.h Chapter5Exercises.cpp Chapter5Exercises.h)
+        Listings/Chapter2Listings.cpp Listings/Chapter2Listings.h
+        Exercises/Chapter2Exercises.cpp Exercises/Chapter2Exercises.h
+        Listings/Chapter3Listings.cpp Listings/Chapter3Listings.h
+        Exercises/Chapter3Exercises.cpp Exercises/Chapter3Exercises.h
+        Listings/Chapter4Listings.cpp Listings/Chapter4Listings.h
+        Exercises/Chapter4Exercises.cpp Exercises/Chapter4Exercises.h
+        Listings/Chapter5Listings.cpp Listings/Chapter5Listings.h Exercises/Chapter5Exercises.cpp Exercises/Chapter5Exercises.h)
