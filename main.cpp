@@ -7,6 +7,7 @@
 #include "Listings/Chapter5Listings.h"
 #include "Exercises/Chapter5Exercises.h"
 #include "Listings/Chapter6Listings.h"
+#include "Exercises/Chapter6Exercises.h"
 
 int main() {
 
@@ -19,8 +20,9 @@ int main() {
     Chapter5Listings Ch5L;
     Chapter5Exercises Ch5E;
     Chapter6Listings Ch6L;
+    Chapter6Exercises Ch6E;
 
-    Ch6L.Listing6_11();
+    Ch6E.Exercise6_1();
 
     return 0;
 }
