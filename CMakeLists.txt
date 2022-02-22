@@ -11,4 +11,6 @@ add_executable(TestLocationLocalforCpp
         Exercises/Chapter3Exercises.cpp Exercises/Chapter3Exercises.h
         Listings/Chapter4Listings.cpp Listings/Chapter4Listings.h
         Exercises/Chapter4Exercises.cpp Exercises/Chapter4Exercises.h
-        Listings/Chapter5Listings.cpp Listings/Chapter5Listings.h Exercises/Chapter5Exercises.cpp Exercises/Chapter5Exercises.h Listings/Chapter6Listings.cpp Listings/Chapter6Listings.h)
+        Listings/Chapter5Listings.cpp Listings/Chapter5Listings.h
+        Exercises/Chapter5Exercises.cpp Exercises/Chapter5Exercises.h
+        Listings/Chapter6Listings.cpp Listings/Chapter6Listings.h)
