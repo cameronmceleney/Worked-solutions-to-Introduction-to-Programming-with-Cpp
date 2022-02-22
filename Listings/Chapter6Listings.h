@@ -43,6 +43,18 @@ private:
      * function-declaration, but not both. Else this will throw a 'redeclaration error' from the compiler. Here,
      * the default value is declared in the .cpp file*/
 
+    // Functions for Listing 6.11.
+    /* These should all be included as prototypes at the top of PrintCalendar.cpp, and then have the function
+     * implementations included after main()*/
+    void L6_11_printMonth(int year, int month);
+    void L6_11_printMonthTitle(int year, int month);
+    void L6_11_printMonthName(int month);
+    void L6_11_printMonthBody(int year, int month);
+    int L6_11_getStartDay(int year, int month);
+    int L6_11_getTotalNumberOfDays(int year, int month);
+    int L6_11_getNumberOfDaysInMonth(int year, int month);
+    bool L6_11_isLeapYear(int year);
+
 public:
     /* These functions serve as main() functions. The filename that they should be associated with is given as a
      * comment to the right */
@@ -57,6 +69,7 @@ public:
     int Listing6_8();                           // InlineDemo.cpp
     int Listing6_9();                           // InlineDemo1.cpp
     int Listing6_10();                          // DefaultArgumentsDemo.cpp
+    int Listing6_11();                          // PrintCalendar.cpp
 
 };
 
