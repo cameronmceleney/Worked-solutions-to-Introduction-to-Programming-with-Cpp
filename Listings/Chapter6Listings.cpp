@@ -203,3 +203,202 @@ int Chapter6Listings::Listing6_10() {
 
     return 0;
 }
+
+int Chapter6Listings::Listing6_11() {
+
+    // Prompt the user to enter year
+    cout << "Enter full year (e.g. 2001): ";
+    int year;
+    cin >> year;
+    // Check if the entered year is supported
+    if (year < 1800) {cout << "You entered an invalid year";return 0;}
+
+    // Prompt the user to select whether to print an annual calendar, or a single month
+    cout << "Print an annual calendar (A) or a single month's calendar (M): ";
+    char calendarChoice;
+    cin >> calendarChoice;
+
+    if (isalpha(calendarChoice)) {
+        // Check if the user entered a letter, then proceed with further questions to select a calendar to print
+        if (toupper(calendarChoice) == 'A') {
+            // Prints a calendar for a full year
+
+            for (int i = 1; i <= 12; i++)
+                // Print calendar for each month of the year
+                L6_11_printMonth(year, i);
+
+            return 0;
+
+        } else if (toupper(calendarChoice) == 'M') {
+            // Print a single month as chosen by the user
+
+            // Prompt the user to enter the month
+            cout << "Enter month in number between 1 and 12: ";
+            int month;
+            cin >> month;
+
+            // Check if the entered month is valid
+            if (month < 1 || month > 12) {cout << "You entered an invalid month";return 0;}
+
+            // Print calendar for the given month
+            L6_11_printMonth(year, month);
+
+            return 0;
+
+        } else {
+            // Output an error message if user enters an invalid letter
+            cout << "You did not enter either character \'A\' or \'M\'";
+            return 0;
+
+        }
+    } else {
+        // Output an error message if user does not enter a letter char
+        cout << "You did not enter a letter";
+        return 0;
+
+    }
+}
+void Chapter6Listings::L6_11_printMonth(int year, int month) {
+    // Print the calendar for a month in a year
+
+    // Add spacing before header is printed
+    cout << "\n";
+
+    // Print the headings of the calendar
+    L6_11_printMonthTitle(year, month);
+
+    // Print the body of the calendar
+    L6_11_printMonthBody(year, month);
+
+    // Add spacing after body is printed
+    cout << "\n";
+}
+void Chapter6Listings::L6_11_printMonthTitle(int year, int month) {
+    // Print the month title, e.g., May, 1999
+
+    L6_11_printMonthName(month);
+    cout << " " << year << '\n';
+    cout << "----------------------------" << '\n';
+    cout << " Sun Mon Tue Wed Thu Fri Sat" << '\n';
+}
+void Chapter6Listings::L6_11_printMonthName(int month) {
+    // Get the English name for the month
+
+    switch(month) {
+
+        case 1:
+            cout << setw(12) << "January";
+            break;
+
+        case 2:
+            cout << setw(12) << "February";
+            break;
+
+        case 3:
+            cout << setw(12) << "March";
+            break;
+
+        case 4:
+            cout << setw(12) << "April";
+            break;
+
+        case 5:
+            cout << setw(12) << "May";
+            break;
+
+        case 6:
+            cout << setw(12) << "June";
+            break;
+
+        case 7:
+            cout << setw(12) << "July";
+            break;
+
+        case 8:
+            cout << setw(12) << "August";
+            break;
+
+        case 9:
+            cout << setw(12) << "September";
+            break;
+
+        case 10:
+            cout << setw(12) << "October";
+            break;
+
+        case 11:
+            cout << setw(12) << "November";
+            break;
+
+        case 12:
+            cout << setw(12) << "December";
+            break;
+    }
+}
+void Chapter6Listings::L6_11_printMonthBody(int year, int month) {
+    // Print month body
+
+    // Get start day of the week for the first date in the month
+    int startDay = L6_11_getStartDay(year, month);
+
+    // Get number of days in the month
+    int numberOfDaysInMonth = L6_11_getNumberOfDaysInMonth(year, month);
+
+    // Pad space before the first day of the month
+    for (int i = 0; i < startDay; i++)
+        cout << "\t";
+
+    for (int i = 1; i <= numberOfDaysInMonth; i++) {
+        cout << setw(4) << i;
+
+        if ((i + startDay) % 7 == 0)
+            cout << '\n';
+    }
+}
+int Chapter6Listings::L6_11_getStartDay(int year, int month) {
+    // Get the start day of the first day in a month
+
+    // Get total number of days since 1st Jan 1800
+    int startDay1800 = 3; // Happen to know this was a Wednesday
+    int totalNumberOfDays = L6_11_getTotalNumberOfDays(year, month);
+
+    // Return the start day
+    return (totalNumberOfDays + startDay1800) % 7;
+}
+int Chapter6Listings::L6_11_getTotalNumberOfDays(int year, int month) {
+    // Get the total number of days since January 1st, 1800
+
+    int total = 0;
+
+    // Get the total days from 1800 to (year - 1)
+    for (int i = 1800; i < year; i++) {
+
+        if (L6_11_isLeapYear(i))
+            total += 366;
+        else
+            total += 365;
+    }
+
+    // Add days from Jan to the month prior to the calendar month
+    for (int i = 1; i < month; i++)
+        total += L6_11_getNumberOfDaysInMonth(year, i);
+
+    return total;
+}
+int Chapter6Listings::L6_11_getNumberOfDaysInMonth(int year, int month) {
+    // Get the number of days in a month
+
+    if (month == 1 || month == 3 || month == 5 || month == 7 ||
+        month == 8 || month == 10 || month == 12)
+        return 31;
+    else if (month == 4 || month == 6 || month == 9 || month == 11)
+        return 30;
+    else if (month == 2)
+        return (L6_11_isLeapYear(year) ? 29 : 28);
+}
+bool Chapter6Listings::L6_11_isLeapYear(int year) {
+    // Determine if it is a leap year
+
+    return (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
+}
+

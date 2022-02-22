@@ -20,7 +20,7 @@ int main() {
     Chapter5Exercises Ch5E;
     Chapter6Listings Ch6L;
 
-    Ch6L.Listing6_10();
+    Ch6L.Listing6_11();
 
     return 0;
 }
