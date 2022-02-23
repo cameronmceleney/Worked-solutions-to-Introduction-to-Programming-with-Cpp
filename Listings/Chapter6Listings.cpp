@@ -398,6 +398,8 @@ int Chapter6Listings::L6_11_getNumberOfDaysInMonth(int year, int month) {
             return 29;
         else
             return 28;
+    else
+        return 0;
 }
 bool Chapter6Listings::L6_11_isLeapYear(int year) {
     // Determine if it is a leap year
