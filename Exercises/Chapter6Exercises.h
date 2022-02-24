@@ -30,9 +30,28 @@ private:
     void L6_3_solveEquation();
 
     // Functions for Exercise 6.4
-    void L6_4_printCurrentTime();
-    void L6_4_printCurrentDate();
-    void L6_4_printYear();
+    void L6_4_printCurrentDateTime();
+    void L6_4_printCurrentTime(const unsigned int &totalSeconds,
+                               const unsigned int &totalMinutes,
+                               const unsigned int &totalHours);
+    void L6_4_printHours(unsigned int totalHours);
+    void L6_4_printMinutes(unsigned int totalMinutes);
+    void L6_4_printSeconds(unsigned int totalSeconds);
+    void L6_4_printCurrentDate(const unsigned int &totalSeconds,
+                               const unsigned int &totalHours);
+    unsigned short  L6_4_findTotalLeapYears(const unsigned int &totalDays);
+    string L6_4_findCurrentMonth(unsigned int totalDaysOfCurrentYear,
+                                 unsigned int &day,
+                                 const bool &isCurrentYearLeapYear);
+    void L6_4_findYear(unsigned short &currentYear,
+                       const unsigned int &totalDays,
+                       unsigned short &totalYearsSinceEpoch,
+                       unsigned short &numberOfLeapYears);
+
+    // Functions for Exercise 6.5
+    void E6_5_findEmirp();
+    bool E6_5_isPrime(int number);
+    bool E6_5_isEmirp(int number);
 
 public:
 
@@ -41,6 +60,7 @@ public:
     int Exercise6_2();                          // (Algebra: solving quadratic equations)
     int Exercise6_3();                          // (Algebra: solving 2 x 2 linear equation)
     int Exercise6_4();                          // (Displaying the current date and time)
+    int Exercise6_5();                          // (Math: Emirp)
 
 
 };
