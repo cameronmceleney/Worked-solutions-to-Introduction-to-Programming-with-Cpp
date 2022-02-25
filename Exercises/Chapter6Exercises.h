@@ -53,6 +53,30 @@ private:
     bool E6_5_isPrime(int number);
     bool E6_5_isEmirp(int number);
 
+    // Functions for Exercise 6.6
+    void E6_6_printPalindromicPrimes(const int &NUMBERS_PER_LINE, const int &TOTAL_PALINDROMICPRIMES_TO_FIND);
+    bool E6_6_isPrime(int &number);
+    bool E6_6_isPalindrome(int &number);
+
+    // Functions for Exercise 6.7
+    void E6_7_printMersennePrimes(const int &MAX_MERSENNE_PRIMES_TO_FIND);
+    bool E6_7_isPrime(unsigned int number);
+    bool E6_7_isPrime(unsigned long long number);
+    unsigned long long E6_7_findMersennePrime(unsigned int number);
+
+    // Functions for Exercise 6.8
+    void E6_8_playCraps();
+    void E6_8_playCrapsPoint(const unsigned short &pointToPlay);
+
+    // Functions for Exercise 6.9
+    void E6_9_playCraps();
+    bool E6_9_playCrapsFirstThrow();
+    bool E6_9_playCrapsPoint(const unsigned short &pointToPlay);
+    bool E6_10_isPrime(int &number);
+
+    // Functions for E_6_10_findTwinPrimes();
+    void E6_10_findTwinPrimes();
+
 public:
 
     // Covers content from all section
@@ -61,6 +85,11 @@ public:
     int Exercise6_3();                          // (Algebra: solving 2 x 2 linear equation)
     int Exercise6_4();                          // (Displaying the current date and time)
     int Exercise6_5();                          // (Math: Emirp)
+    int Exercise6_6();                          // (Math: Palindromic prime)
+    int Exercise6_7();                          // (Mersenne prime)
+    int Exercise6_8();                          // (Game: craps)
+    int Exercise6_9();                          // (Game: chance of winning at craps)
+    int Exercise6_10();                         // (Math: twin primes)
 
 
 };

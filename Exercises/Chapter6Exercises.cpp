@@ -465,3 +465,371 @@ bool Chapter6Exercises::E6_5_isEmirp(int number) {
     else
         return false;
 }
+
+int Chapter6Exercises::Exercise6_6() {
+
+    /* (** difficulty)
+     *
+     * A palindromic prime is a prime number and also a palindromic number. For example, 131 is a prime and also a
+     * palindromic prime. So are 313 and 757. Write a program that displays the first 100 palindromic prime numbers.
+     * Display 10 numbers per line and align the numbers properly, as follows:
+     *
+     *      2       3       5       7       11      101     131     151     181     191
+     *    313     353     373     383      727      757     787     797     919     929
+     *    ...     ...     ...     ...      ...      ...     ...     ...     ...     ...
+     */
+
+    const int NUMBERS_PER_LINE = 10, TOTAL_PALINDROMICPRIMES_TO_FIND = 100; // consts come from question
+
+    E6_6_printPalindromicPrimes(NUMBERS_PER_LINE, TOTAL_PALINDROMICPRIMES_TO_FIND); // Invoke function to find palindromic primes
+
+    return 0;
+}
+void Chapter6Exercises::E6_6_printPalindromicPrimes(const int &NUMBERS_PER_LINE,
+                                                    const int &TOTAL_PALINDROMICPRIMES_TO_FIND) {
+    // Prints a set number of 'palindromic primes' by first testing if the number is prime, before finding out if
+    // it is also palindromic
+
+    int totalPalinPrimesFound = 0;
+    int number = 2; // 2 is the first palindromic prime, so can begin here
+
+    while (totalPalinPrimesFound < TOTAL_PALINDROMICPRIMES_TO_FIND) {
+
+        if(E6_6_isPrime(number)) {
+            // Test if a number is prime
+
+            if (E6_6_isPalindrome(number)) {
+                // If number is prime, then test if number is a palindrome
+
+                // If number is both prime and palindromic, then print to user
+                if ((totalPalinPrimesFound + 1) % NUMBERS_PER_LINE == 0)
+                    // Takes a new line when there NUMBERS_PER_LINE per each line
+                    cout << setw(8) << number << endl;
+                else
+                    cout << setw(8) << number;
+
+                totalPalinPrimesFound++; // Increment counter at end of all tests
+            }
+        }
+
+        number++;
+    }
+}
+bool Chapter6Exercises::E6_6_isPrime(int &number) {
+    // Check whether number is prime (exact copy of Listing 5.5 and Exercise 5.9)
+
+    for (int divisor = 2; divisor <= number / 2; divisor++)
+    {
+        if (number % divisor == 0)
+        {
+            // If true, number is not prime
+            return false; // Number is not a prime
+        }
+    }
+    return true; // Number is prime
+
+}
+bool Chapter6Exercises::E6_6_isPalindrome(int &number) {
+    // Returns true if a given 'number' is palindromic (Exact copy of Exercise 5.5).
+
+    int reversedNumber = 0;
+    int tempNumber = number; // copy original number to tempNumber; this is what we will remove digits from as we reverse it
+
+    do {
+        // Add last digit of number to reversed number, after moving digits to the left.
+        reversedNumber = reversedNumber * 10 + tempNumber % 10;
+        tempNumber /= 10; // Remove added digit from temporary number
+
+    } while (tempNumber > 0);
+
+    if (number == reversedNumber)
+        return true;
+    else
+        return false;
+}
+
+int Chapter6Exercises::Exercise6_7() {
+
+    /* (** difficulty)
+     *
+     * A prime is called a Mersenne prime if it can be written in the form (pow(2, p) - 1) for some positive integer
+     * p. write a program that finds all Mersenne primes with p <= 61 and displays the output as shown below:
+     *
+     *                  p               Mp
+     *
+     *                  2                3
+     *                  3                7
+     *                  5               31
+     *                  7              127
+     *                ...              ...
+     */
+
+    int MAX_P_VALUE = 61;
+    // Fails to find the p(61) mersenne number
+    E6_7_printMersennePrimes(MAX_P_VALUE);
+
+    return 0;
+}
+void Chapter6Exercises::E6_7_printMersennePrimes(const int &MAX_MERSENNE_PRIMES_TO_FIND) {
+    // Finds the first MAX_MERSENNE_PRIMES_TO_FIND Mersenne Primes (Mp)
+
+    unsigned int number = 2; // 2 is the first palindromic prime, so can begin here
+
+    cout << setw(8) << 'p' << setw(20) << "Mp" << "\n\n";
+
+    while (number <= MAX_MERSENNE_PRIMES_TO_FIND) {
+
+        if (E6_7_isPrime(number)) {
+            // First find a prime number
+
+            // Test if number is a Mersenne prime
+            auto mersennePrime = E6_7_findMersennePrime(number);
+
+            // E6_7_findMersennePrime returns 1 (author's attempt to mirror error codes) if the number is not a Mp
+            if (mersennePrime > 1.0) {cout << setw(8) << number << setw(16) << mersennePrime << '\n';}
+        }
+
+        number++;
+    }
+}
+bool Chapter6Exercises::E6_7_isPrime(unsigned int number) {
+    // Check whether number is prime (exact copy of Listing 5.5 and Exercise 5.9)
+
+    for (int divisor = 2; divisor <= sqrt(number); divisor++)
+    {
+        if (number % divisor == 0)
+        {
+            // If true, number is not prime
+            return false;
+        }
+    }
+
+    return true; // Number is prime
+}
+bool Chapter6Exercises::E6_7_isPrime(unsigned long long number) {
+    // Check whether number is prime (exact copy of Listing 5.5 and Exercise 5.9)
+
+    auto number2 = static_cast<unsigned long long>(number);
+    for (int divisor = 2; divisor <= sqrt(number) ; divisor++)
+    {
+        if (number2 % divisor == 0)
+        {
+            // If true, number is not prime
+            return false;
+        }
+    }
+
+    return true; // Number is prime
+}
+unsigned long long Chapter6Exercises::E6_7_findMersennePrime(unsigned int number) {
+    // Use the formula [pow(2, p) - 1] to find a Mersenne prime
+
+    auto possibleMersennePrime = static_cast<unsigned long long>(pow(2.0, number) - 1);
+
+    if (E6_7_isPrime(possibleMersennePrime))
+        return possibleMersennePrime;
+    else
+        return 1.0;
+}
+
+int Chapter6Exercises::Exercise6_8() {
+
+    /* (** difficulty)
+     *
+     * Craps is a popular dice game played in casinos. Write a program to play a variation of the game, as follows:
+     *
+     *       Roll two dice. Each die has six faces representing values 1,2,..., and 6, respectively. Check
+     *       the sum is 7 or 11. If the sum is 2,3, or 12 (called craps), you lose; if the sum is 7 or
+     *       11 (called natural), you win; if the sum is another value (i.e. 4,5,6,8,9, or 10), a point
+     *       is established. Continue until you roll either a 7 (you lose) or the same point value (you
+     *       win).
+     */
+
+    E6_8_playCraps();
+
+    return 0;
+}
+void Chapter6Exercises::E6_8_playCraps() {
+    // Plays the game of Craps
+
+    srand(time(0));
+
+    unsigned short dice1 = rand() % 6 + 1;
+    unsigned short dice2 = rand() % 6 + 1;
+
+    unsigned short sumOfDice = dice1 + dice2;
+
+    cout << "You rolled " << dice1 << " + " << dice2 << " = " << sumOfDice << "\n";
+
+    if (sumOfDice == 2 || sumOfDice == 3 || sumOfDice == 12)
+        cout << "You lose";
+    else if (sumOfDice == 7 || sumOfDice == 11)
+        cout << "You win";
+    else {
+        cout << "point is " << sumOfDice << "\n";
+        E6_8_playCrapsPoint(sumOfDice);
+    }
+}
+void Chapter6Exercises::E6_8_playCrapsPoint(const unsigned short &pointToPlay) {
+    // If a point is established, continues play until the player wins or loses
+
+    bool continuePoint = true;
+
+    while (continuePoint) {
+
+        unsigned short dice1 = rand() % 6 + 1;
+        unsigned short dice2 = rand() % 6 + 1;
+        unsigned short sumOfPointsDice = dice1 + dice2;
+
+        cout << "You rolled " << dice1 << " + " << dice2 << " = " << sumOfPointsDice << "\n";
+
+        if (sumOfPointsDice == 7) {
+            cout << "You lose";
+            continuePoint = false;
+        } else if (sumOfPointsDice == pointToPlay) {
+            cout << "You win";
+            continuePoint = false;
+        }
+    }
+}
+
+int Chapter6Exercises::Exercise6_9() {
+
+    /* (** difficulty)
+     *
+     * Revise Exercise 6.8 to run it 10000 times and display the number of winning games.
+     */
+
+    srand(time(0));
+
+    E6_9_playCraps();
+
+    return 0;
+}
+void Chapter6Exercises::E6_9_playCraps() {
+    // Plays the game of Craps a set number of times
+
+    const int MAX_GAMES = 10000;
+    unsigned short totalGamesPlayed = 0, numberOfLoses = 0, numberOfWins = 0;
+
+    while (++totalGamesPlayed < MAX_GAMES) {
+
+        bool isPlayerWinner = E6_9_playCrapsFirstThrow();
+
+        if (isPlayerWinner)
+            // If function is true, then you won
+            numberOfWins++;
+        else
+            // If function is false, then you lost
+            numberOfLoses++;
+    }
+
+    // Inform user of their results
+    cout << "For " << MAX_GAMES << " games, you had " << numberOfWins << " wins, and " << numberOfLoses << " loses.";
+}
+bool Chapter6Exercises::E6_9_playCrapsFirstThrow() {
+    // Plays the first round of craps, to see whether a point needs to be played
+
+    // As per game rules, two dice must be thrown. Also disables compiler warning about rand()
+    int dice1 = 1 + rand() % 6; // NOLINT(cert-msc30-c, cert-msc50-cpp)
+    int dice2 = 1 + rand() % 6; // NOLINT(cert-msc30-c, cert-msc50-cpp)
+
+    unsigned short sumOfDice = dice1 + dice2; // Computes player's score for the throw
+
+    bool didPlayerWin;
+
+    if (sumOfDice == 2 || sumOfDice == 3 || sumOfDice == 12)
+        // Conditions for player to lose
+        didPlayerWin = false;
+    else if (sumOfDice == 7 || sumOfDice == 11)
+        // Conditions for player to win
+        didPlayerWin = true;
+    else
+        // Player didn't win or lose, so a point must be played
+        didPlayerWin = E6_9_playCrapsPoint(sumOfDice);
+
+    // Returns result to main() function
+    if (didPlayerWin)
+        return true;
+    else
+        return false;
+}
+bool Chapter6Exercises::E6_9_playCrapsPoint(const unsigned short &pointToPlay) {
+    // If a point is established, continues play until the player wins or loses
+
+    bool isPointOver, didPlayerWin;
+
+    do {
+
+        // Throws dice & disables warnings about rand()
+        int dice1 = rand() % 6 + 1; // NOLINT(cert-msc30-c, cert-msc50-cpp)
+        int dice2 = rand() % 6 + 1; // NOLINT(cert-msc30-c, cert-msc50-cpp)
+
+        unsigned short sumOfPointsDice = dice1 + dice2; // finds player's score
+
+        if (sumOfPointsDice == 7) {
+            // Condition for player to lose point
+            isPointOver = true;
+            didPlayerWin = false;
+        } else if (sumOfPointsDice == pointToPlay) {
+            // Condition for player to win point
+            isPointOver = true;
+            didPlayerWin = true;
+        } else
+            // Player had a NULL result, so point must continue to be played
+            isPointOver = false;
+    } while (!isPointOver);
+
+    // Returns result to FirstThrow function
+    if (didPlayerWin)
+        return true;
+    else
+        return false;
+}
+
+int Chapter6Exercises::Exercise6_10() {
+
+    /* (** difficulty)
+     *
+     * Twin primes are a pair of prime numbers that differ by 2. For example, 3 and 5 are prime numbers, as are 5 and 7,
+     * and 11 and 13. Write a program to find all twin primes less than 1000. Display the output as follows:
+     *
+     *              (3, 5)
+     *              (5, 7)
+     */
+
+    E6_10_findTwinPrimes();
+
+    return 0;
+}
+void Chapter6Exercises::E6_10_findTwinPrimes() {
+    // Searches below a given limit to find twin primes
+
+    const int UPPER_LIMIT = 1000;
+    int currentPrime = 3, previousPrime = 2, currentNumber = 3;
+
+    while (++currentNumber <= UPPER_LIMIT) {
+
+        if (E6_10_isPrime(currentNumber)) {
+            previousPrime = currentPrime;
+            currentPrime = currentNumber;
+
+            if (previousPrime + 2 == currentPrime)
+                cout << "(" << previousPrime << ", " << currentPrime << ")\n";
+        }
+    }
+}
+bool Chapter6Exercises::E6_10_isPrime(int &number) {
+    // Check whether number is prime (exact copy of Listing 5.5)
+
+    for (int divisor = 2; divisor <= sqrt(number); divisor++)
+    {
+        if (number % divisor == 0)
+        {
+            // If true, number is not prime
+            return false; // Number is not a prime
+        }
+    }
+    return true; // Number is prime
+
+}
