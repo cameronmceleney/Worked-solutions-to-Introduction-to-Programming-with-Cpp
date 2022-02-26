@@ -34,35 +34,35 @@ int Chapter6Exercises::Exercise6_1() {
     return 0;
 }
 
-double Chapter6Exercises::L6_2computeDiscriminant(double a, double b, double c) {
+double Chapter6Exercises::E6_2computeDiscriminant(double a, double b, double c) {
     // Calculates the discriminant of the quadratic equation
     double discriminant = pow(b, 2) - 4 * a * c;
     return discriminant;
 }
-double Chapter6Exercises::L6_2_solveQuadraticR1(double a, double b, const double &discriminant) {
+double Chapter6Exercises::E6_2_solveQuadraticR1(double a, double b, const double &discriminant) {
     // Finds the first root of the quadratic equation
     double root = (-b + sqrt(discriminant)) / (2 * a);
 
     return root;
 }
-double Chapter6Exercises::L6_2_solveQuadraticR2(double a, double b, const double &discriminant) {
+double Chapter6Exercises::E6_2_solveQuadraticR2(double a, double b, const double &discriminant) {
     // Finds the first root of the quadratic equation
     double root = (-b - sqrt(discriminant)) / (2 * a);
 
     return root;
 }
-void Chapter6Exercises::L6_2_solveQuadraticEquation(double a, double b, double c, double &discriminant, double &r1, double &r2) {
+void Chapter6Exercises::E6_2_solveQuadraticEquation(double a, double b, double c, double &discriminant, double &r1, double &r2) {
 
-    discriminant = L6_2computeDiscriminant(a, b, c);
+    discriminant = E6_2computeDiscriminant(a, b, c);
 
     if (discriminant > 0) {
 
-        r1 = L6_2_solveQuadraticR1(a, b, discriminant);
-        r2 = L6_2_solveQuadraticR2(a, b, discriminant);
+        r1 = E6_2_solveQuadraticR1(a, b, discriminant);
+        r2 = E6_2_solveQuadraticR2(a, b, discriminant);
         cout << "The roots are " << r1 << " and " << r2 << endl;
     } else if (discriminant == 0) {
 
-        r1 = L6_2_solveQuadraticR1(a, b, discriminant);
+        r1 = E6_2_solveQuadraticR1(a, b, discriminant);
         cout << "The root is " << r1 << endl;
     } else
         cout << "The equation has no roots\n";
@@ -98,19 +98,19 @@ int Chapter6Exercises::Exercise6_2() {
 
     double discriminant = 0, r1 = 0, r2 = 0;
 
-    L6_2_solveQuadraticEquation(a, b, c, discriminant, r1, r2);
+    E6_2_solveQuadraticEquation(a, b, c, discriminant, r1, r2);
 
     return 0;
 }
 
-double Chapter6Exercises::L6_3_computeDenominator(const double &a, const double &b, const double &c, const double &d) {
+double Chapter6Exercises::E6_3_computeDenominator(const double &a, const double &b, const double &c, const double &d) {
     // Finds the denominator for 'x' and 'y' for Cramer's Rule
 
     double denominator = a * d - b * c;
 
     return denominator;
 }
-bool Chapter6Exercises::L6_3_findIfSolvable(const double &denominator) {
+bool Chapter6Exercises::E6_3_findIfSolvable(const double &denominator) {
     // checks if a solution exists
 
     if (denominator != 0)
@@ -119,21 +119,21 @@ bool Chapter6Exercises::L6_3_findIfSolvable(const double &denominator) {
     else
         return false;
 }
-double Chapter6Exercises::L6_3_computeX(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator) {
+double Chapter6Exercises::E6_3_computeX(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator) {
     // Finds the value of 'x' in Cramer's Rule
 
     double xValue = (e * d - b * f) / denominator;
 
     return xValue;
 }
-double Chapter6Exercises::L6_3_computeY(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator) {
+double Chapter6Exercises::E6_3_computeY(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator) {
     // Finds the value of 'x' in Cramer's Rule
 
     double yValue = (a * f - e * c) / denominator;
 
     return yValue;
 }
-void Chapter6Exercises::L6_3_solveEquation() {
+void Chapter6Exercises::E6_3_solveEquation() {
     // Solves the equation for Cramer's Rule
 
     // Prompts user for inputs
@@ -143,12 +143,12 @@ void Chapter6Exercises::L6_3_solveEquation() {
 
     cout << "Enter c, d, and f, for the first equation: ";
     double c, d , f;
-    cin >> c >> d >>f;
+    cin >> c >> d >> f;
 
-    double denominator = L6_3_computeDenominator(a, b, c ,d);
-    double x = L6_3_computeX(a, b, c , d, e, f, denominator);
-    double y = L6_3_computeY(a, b, c , d, e, f, denominator);
-    bool isSolvable = L6_3_findIfSolvable(denominator);
+    double denominator = E6_3_computeDenominator(a, b, c ,d);
+    double x = E6_3_computeX(a, b, c , d, e, f, denominator);
+    double y = E6_3_computeY(a, b, c , d, e, f, denominator);
+    bool isSolvable = E6_3_findIfSolvable(denominator);
 
     if (isSolvable) {
         cout << "The solutions are " << x << " and " << y << endl;
@@ -164,7 +164,7 @@ int Chapter6Exercises::Exercise6_3() {
      *                              a*x + b*y = e
      *                              c*x + d*y = f
      *
-     *                              x = (e*d - b*f) / (a*d + b*c)
+     *                              x = (e*d - b*f) / (a*d - b*c)
      *                              y = (a*f - e*c) / (a*d - b*c)
      *
      * Write a function with the following header:
@@ -181,7 +181,7 @@ int Chapter6Exercises::Exercise6_3() {
      * the solveEquation() function more sensibly.
      */
 
-    L6_3_solveEquation();
+    E6_3_solveEquation();
 
     return 0;
 }
@@ -194,10 +194,10 @@ int Chapter6Exercises::Exercise6_4() {
      * year, month, and day.
      */
 
-    L6_4_printCurrentDateTime();
+    E6_4_printCurrentDateTime();
     return 0;
 }
-void Chapter6Exercises::L6_4_printCurrentDateTime() {
+void Chapter6Exercises::E6_4_printCurrentDateTime() {
     // Finds the current date, and time, and prints this to the user.
 
     unsigned int totalSeconds, totalMinutes, totalHours;
@@ -205,11 +205,11 @@ void Chapter6Exercises::L6_4_printCurrentDateTime() {
     totalMinutes = totalSeconds / 60;
     totalHours = totalMinutes / 60;
 
-    L6_4_printCurrentTime(totalSeconds, totalMinutes, totalHours);
-    L6_4_printCurrentDate(totalSeconds, totalHours);
+    E6_4_printCurrentTime(totalSeconds, totalMinutes, totalHours);
+    E6_4_printCurrentDate(totalSeconds, totalHours);
 
 }
-void Chapter6Exercises::L6_4_printCurrentTime(const unsigned int &totalSeconds,
+void Chapter6Exercises::E6_4_printCurrentTime(const unsigned int &totalSeconds,
                                               const unsigned int &totalMinutes,
                                               const unsigned int &totalHours) {
     // Finds and prints the current time
@@ -218,14 +218,14 @@ void Chapter6Exercises::L6_4_printCurrentTime(const unsigned int &totalSeconds,
 
 
     // Find the current time
-    L6_4_printHours(totalHours);
+    E6_4_printHours(totalHours);
     cout << ":";
-    L6_4_printMinutes(totalMinutes);
+    E6_4_printMinutes(totalMinutes);
     cout << ":";
-    L6_4_printSeconds(totalSeconds);
+    E6_4_printSeconds(totalSeconds);
     cout << endl;
 }
-void Chapter6Exercises::L6_4_printHours(unsigned int totalHours) {
+void Chapter6Exercises::E6_4_printHours(unsigned int totalHours) {
     // Prints the current number of seconds
 
     unsigned short currentHours = totalHours % 24;
@@ -235,7 +235,7 @@ void Chapter6Exercises::L6_4_printHours(unsigned int totalHours) {
     } else
         cout << currentHours;
 }
-void Chapter6Exercises::L6_4_printMinutes(unsigned int totalMinutes) {
+void Chapter6Exercises::E6_4_printMinutes(unsigned int totalMinutes) {
     // Prints the current number of seconds
 
     unsigned short currentMinutes = totalMinutes % 60;
@@ -245,7 +245,7 @@ void Chapter6Exercises::L6_4_printMinutes(unsigned int totalMinutes) {
     } else
         cout << currentMinutes;
 }
-void Chapter6Exercises::L6_4_printSeconds(unsigned int totalSeconds) {
+void Chapter6Exercises::E6_4_printSeconds(unsigned int totalSeconds) {
     // Prints the current number of seconds
 
     unsigned short currentSeconds = totalSeconds % 60;
@@ -255,7 +255,7 @@ void Chapter6Exercises::L6_4_printSeconds(unsigned int totalSeconds) {
     } else
         cout << currentSeconds;
 }
-void Chapter6Exercises::L6_4_printCurrentDate(const unsigned int &totalSeconds,
+void Chapter6Exercises::E6_4_printCurrentDate(const unsigned int &totalSeconds,
                                               const unsigned int &totalHours) {
 
     // Finds and prints the current date in DD/MM/YYYY format
@@ -265,18 +265,18 @@ void Chapter6Exercises::L6_4_printCurrentDate(const unsigned int &totalSeconds,
     unsigned int currentDay = 0; // Which day today is
     unsigned short numberOfLeapYears = 0; // How many leap years between Epoch and this year
 
-    L6_4_findYear(currentYear, totalDays, totalYearsSinceEpoch, numberOfLeapYears);
+    E6_4_findYear(currentYear, totalDays, totalYearsSinceEpoch, numberOfLeapYears);
     bool isCurrentYearLeapYear = (currentYear % 400 == 0 || (currentYear % 4 == 0 && currentYear % 100 != 0)) ? true : false;
 
     // The +1 is an offset due to the first day of the year being 1st Jan, not 0th Jan, which is where code would begin
     // to count
     int totalDaysOfCurrentYear = totalDays - (totalYearsSinceEpoch * 365) - numberOfLeapYears + 1;
 
-    string currentMonth = L6_4_findCurrentMonth(totalDaysOfCurrentYear, currentDay, isCurrentYearLeapYear);
+    string currentMonth = E6_4_findCurrentMonth(totalDaysOfCurrentYear, currentDay, isCurrentYearLeapYear);
 
     cout << currentDay << " " << currentMonth << " " << currentYear << endl;
 }
-void Chapter6Exercises::L6_4_findYear(unsigned short &currentYear,
+void Chapter6Exercises::E6_4_findYear(unsigned short &currentYear,
                                       const unsigned int &totalDays,
                                       unsigned short &totalYearsSinceEpoch,
                                       unsigned short &numberOfLeapYears) {
@@ -303,7 +303,7 @@ void Chapter6Exercises::L6_4_findYear(unsigned short &currentYear,
     totalYearsSinceEpoch = currentYear - startingYear; // Exclude starting year itself from count
 }
 
-string Chapter6Exercises::L6_4_findCurrentMonth(unsigned int totalDaysOfCurrentYear, unsigned int &currentDay, const bool &isCurrentYearLeapYear) {
+string Chapter6Exercises::E6_4_findCurrentMonth(unsigned int totalDaysOfCurrentYear, unsigned int &currentDay, const bool &isCurrentYearLeapYear) {
     // Output the name of the current month as a string
 
 
@@ -1169,15 +1169,110 @@ void Chapter6Exercises::E6_13_areaOfPolygons() {
     double lengthOfSides;
     cin >> lengthOfSides;
 
+    // Output area by invoking function without cout statement
     cout << fixed << setprecision(2)
          << "An " << numberOfSides << "-sided polygon with sides of length "
          << lengthOfSides << " has an area of "
          << E6_13_regPolyArea(numberOfSides, lengthOfSides) << ".\n";
 }
 double Chapter6Exercises::E6_13_regPolyArea(int n, double s) {
-    // Calculates area of a pentagon, where 's' is the length of a side of the pentagon
+    // Calculates area of a polygon, where 's' is the length of a side and 'n' is the number of sides
 
     double area = (n * pow(s, 2)) / (4 * tan(M_PI / n));
 
     return area;
 }
+
+int Chapter6Exercises::Exercise6_14() {
+
+    /* (** difficulty)
+     *
+     * Suppose two line segments intersect. The two endpoints for the first line segment are (x1, y1) and (x2, y2) and
+     * for the second line segment are (x3, y3) and (x4, y4). Write a program that prompts the user to enter these
+     * four endpoints and displays the intersection point. (Hint: Use the function for solving 2 x 2 linear
+     * equations)
+     */
+
+    E6_14_intersectionOfTwoLines();
+
+    return 0;
+}
+void Chapter6Exercises::E6_14_intersectionOfTwoLines() {
+    // Use Cramer's Rule to find if two lines intersect. If they do, then calculate at which point (x, y) this occurs
+
+    // Prompt user for input
+    cout << "Enter the endpoints of the first line segment: ";
+    double x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
+
+    cout << "Enter the endpoints of the second line segment: ";
+    double x3, y3, x4, y4;
+    cin >> x3 >> y3 >> x4 >> y4;
+
+    // Calculate co-efficients from Cramer's rule
+    double a = (y1 - y2),
+           b = (x1 - x2),
+           c = (y3 - y4),
+           d = (x3 - x4);
+
+    double e = a * x1 - b * y1,
+           f = c * x3 - d * y3;
+
+    // Find the determinant to check if the lines intersect
+    double determinant = a * d - b * c;
+
+    if (determinant == 0) {
+        cout << "The lines do not intersect" << "\n";
+    } else {
+        double x = (e * d - b * f) / determinant;
+        double y = -1 * (a * f - e * c) / determinant; // TODO Unsure why the -1* was the fix I needed to make the code work
+        cout << "The det is " << determinant << endl;
+        cout << "The intersecting point is: (" << x << ", " << y << ")";
+    }
+}
+
+int Chapter6Exercises::Exercise6_15() {
+
+    /* (** difficulty)
+     *
+     * Implement the sqrt function. The square root of a number, num, can be approximated by repeatedly performing a
+     * calculation using the following formula:
+     *
+     *                  nextGuess = (lastGuess + (num / lastGuess)) / 2
+     *
+     * The initial guess can be any positive value (e.g., 1). This value will be the starting value for lastGuess. If
+     * the difference between nextGuess and lastGuess is less than a very small number, such as 0.0001, you can claim
+     * that nextGuess is the approximated square root of num. If not, nextGuess becomes the lastGuess and the
+     * approximation process continues.
+     */
+
+    E6_15_approximateSqrt();
+
+    return 0;
+}
+void Chapter6Exercises::E6_15_approximateSqrt() {
+    // Implement an approximation the sqrt function by continually halving two guesses until the root is found
+
+    double precisionTolerance = 0.0001;
+    cout << "Enter a positive number to approximate the sqrt of: ";
+    double num;
+    cin >> num;
+
+    double lastGuess = 1.0;
+    double nextGuess = (lastGuess + (num / lastGuess)) / 2;
+
+    // Handles the case where the first guess is correct
+    if (nextGuess - lastGuess < precisionTolerance) {
+        cout << "The approximate root of " << num << " is " << nextGuess;
+    } else {
+        // Continue to test a guess until the required tolerance is met. Remember that the nextGuess is increasingly
+        // small, so lastGuess (within the loop) will be the larger of the two numbers.
+        do {
+            lastGuess = nextGuess;
+            nextGuess = (lastGuess + (num / lastGuess)) / 2;
+        } while ((lastGuess - nextGuess) >= precisionTolerance);
+
+        cout << "The approximate root of " << num << " is " << nextGuess;
+    }
+}
+

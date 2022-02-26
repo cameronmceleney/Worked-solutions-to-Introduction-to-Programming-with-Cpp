@@ -17,33 +17,33 @@ private:
     void E6_1_swap(double &num1, double &num2);
 
     // Functions for Exercise 6.2
-    void L6_2_solveQuadraticEquation(double a, double b, double c, double &discriminant, double &r1, double &r2);
-    double L6_2computeDiscriminant(double a, double b, double c);
-    double L6_2_solveQuadraticR1(double a, double b, const double &discriminant);
-    double L6_2_solveQuadraticR2(double a, double b, const double &discriminant);
+    void E6_2_solveQuadraticEquation(double a, double b, double c, double &discriminant, double &r1, double &r2);
+    double E6_2computeDiscriminant(double a, double b, double c);
+    double E6_2_solveQuadraticR1(double a, double b, const double &discriminant);
+    double E6_2_solveQuadraticR2(double a, double b, const double &discriminant);
 
     // Functions for Exercise 6.3
-    double L6_3_computeDenominator(const double &a, const double &b, const double &c, const double &d);
-    bool L6_3_findIfSolvable(const double &denominator);
-    double L6_3_computeX(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator);
-    double L6_3_computeY(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator);
-    void L6_3_solveEquation();
+    double E6_3_computeDenominator(const double &a, const double &b, const double &c, const double &d);
+    bool E6_3_findIfSolvable(const double &denominator);
+    double E6_3_computeX(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator);
+    double E6_3_computeY(const double &a, const double &b, const double &c, const double &d, const double &e, const double &f, const double &denominator);
+    void E6_3_solveEquation();
 
     // Functions for Exercise 6.4
-    void L6_4_printCurrentDateTime();
-    void L6_4_printCurrentTime(const unsigned int &totalSeconds,
+    void E6_4_printCurrentDateTime();
+    void E6_4_printCurrentTime(const unsigned int &totalSeconds,
                                const unsigned int &totalMinutes,
                                const unsigned int &totalHours);
-    void L6_4_printHours(unsigned int totalHours);
-    void L6_4_printMinutes(unsigned int totalMinutes);
-    void L6_4_printSeconds(unsigned int totalSeconds);
-    void L6_4_printCurrentDate(const unsigned int &totalSeconds,
+    void E6_4_printHours(unsigned int totalHours);
+    void E6_4_printMinutes(unsigned int totalMinutes);
+    void E6_4_printSeconds(unsigned int totalSeconds);
+    void E6_4_printCurrentDate(const unsigned int &totalSeconds,
                                const unsigned int &totalHours);
-    unsigned short  L6_4_findTotalLeapYears(const unsigned int &totalDays);
-    string L6_4_findCurrentMonth(unsigned int totalDaysOfCurrentYear,
+    unsigned short  E6_4_findTotalLeapYears(const unsigned int &totalDays);
+    string E6_4_findCurrentMonth(unsigned int totalDaysOfCurrentYear,
                                  unsigned int &day,
                                  const bool &isCurrentYearLeapYear);
-    void L6_4_findYear(unsigned short &currentYear,
+    void E6_4_findYear(unsigned short &currentYear,
                        const unsigned int &totalDays,
                        unsigned short &totalYearsSinceEpoch,
                        unsigned short &numberOfLeapYears);
@@ -92,9 +92,15 @@ private:
     void E6_12_areaOfPentagon();
     double E6_12_calculateArea(double length);
 
-    // Functions for Exercise 6.12E6_13_regPolyArea
+    // Functions for Exercise 6.13
     void E6_13_areaOfPolygons();
     double E6_13_regPolyArea(int n, double length);
+
+    // Functions for Exercise 6.14
+    void E6_14_intersectionOfTwoLines();
+
+    // Functions for Exercise 6.15
+    void E6_15_approximateSqrt();
 
 public:
 
@@ -112,6 +118,8 @@ public:
     int Exercise6_11();                         // (Printing calendar)
     int Exercise6_12();                         // (Geometry: area of a pentagon)
     int Exercise6_13();                         // (Geometry: area of a regular polygon)
+    int Exercise6_14();                         // (Geometry: intersection)
+    int Exercise6_15();                         // (Approximating the square root)
 
 
 };
