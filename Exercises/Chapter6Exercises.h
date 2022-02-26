@@ -74,8 +74,27 @@ private:
     bool E6_9_playCrapsPoint(const unsigned short &pointToPlay);
     bool E6_10_isPrime(int &number);
 
-    // Functions for E_6_10_findTwinPrimes();
+    // Functions for Exercise 6.10;
     void E6_10_findTwinPrimes();
+
+    // Functions for Exercise 6.11
+    /* These should all be included as prototypes at the top of PrintCalendar.cpp, and then have the function
+     * implementations included after main()*/
+    void E6_11_printMonth(int year, int month);
+    void E6_11_printMonthTitle(int year, int month);
+    void E6_11_printMonthName(int month);
+    void E6_11_printMonthBody(int year, int month);
+    int E6_11_getStartDay(int month, int year);
+    int E6_11_getNumberOfDaysInMonth(int year, int month);
+    bool E6_11_isLeapYear(int year);
+
+    // Functions for Exercise 6.12
+    void E6_12_areaOfPentagon();
+    double E6_12_calculateArea(double length);
+
+    // Functions for Exercise 6.12E6_13_regPolyArea
+    void E6_13_areaOfPolygons();
+    double E6_13_regPolyArea(int n, double length);
 
 public:
 
@@ -90,6 +109,9 @@ public:
     int Exercise6_8();                          // (Game: craps)
     int Exercise6_9();                          // (Game: chance of winning at craps)
     int Exercise6_10();                         // (Math: twin primes)
+    int Exercise6_11();                         // (Printing calendar)
+    int Exercise6_12();                         // (Geometry: area of a pentagon)
+    int Exercise6_13();                         // (Geometry: area of a regular polygon)
 
 
 };

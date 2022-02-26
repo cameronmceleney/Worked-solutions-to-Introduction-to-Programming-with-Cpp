@@ -22,7 +22,7 @@ int main() {
     Chapter6Listings Ch6L;
     Chapter6Exercises Ch6E;
 
-    Ch6E.Exercise6_10();
+    Ch6E.Exercise6_13();
 
     return 0;
 }

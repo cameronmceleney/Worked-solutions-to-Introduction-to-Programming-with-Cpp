@@ -830,6 +830,354 @@ bool Chapter6Exercises::E6_10_isPrime(int &number) {
             return false; // Number is not a prime
         }
     }
-    return true; // Number is prime
 
+    return true; // Number is prime
+}
+
+int Chapter6Exercises::Exercise6_11() {
+
+    /* (** difficulty)
+     *
+     * Exercise 3.18 uses Zeller's congruence to calculate the day of the week. Simplify Listing 6.11,
+     * PrintCalendar.cpp, using Zeller's algorithm to get the start day of the month.
+     *
+     * (Note: This code is a direct copy of Listing 6.11, before being amended to include Zeller's algorithm.)
+     */
+
+    // Prompt the user to enter year
+    cout << "Enter full year (e.g. 2001): ";
+    int year;
+    cin >> year;
+    // Check if the entered year is supported
+    if (year < 1800) {cout << "You entered an invalid year";return 0;}
+
+    // Prompt the user to select whether to print an annual calendar, or a single month
+    cout << "Print an annual calendar (A) or a single month's calendar (M): ";
+    char calendarChoice;
+    cin >> calendarChoice;
+
+    if (isalpha(calendarChoice)) {
+        // Check if the user entered a letter, then proceed with further questions to select a calendar to print
+        if (toupper(calendarChoice) == 'A') {
+            // Prints a calendar for a full year
+
+            for (int i = 1; i <= 12; i++)
+                // Print calendar for each month of the year
+                E6_11_printMonth(year, i);
+
+            return 0;
+
+        } else if (toupper(calendarChoice) == 'M') {
+            // Print a single month as chosen by the user
+
+            // Prompt the user to enter the month
+            cout << "Enter month in number between 1 and 12: ";
+            int month;
+            cin >> month;
+
+            // Check if the entered month is valid
+            if (month < 1 || month > 12) {cout << "You entered an invalid month";return 0;}
+
+            // Print calendar for the given month
+            E6_11_printMonth(year, month);
+
+            return 0;
+
+        } else {
+            // Output an error message if user enters an invalid letter
+            cout << "You did not enter either character \'A\' or \'M\'";
+            return 0;
+
+        }
+    } else {
+        // Output an error message if user does not enter a letter char
+        cout << "You did not enter a letter";
+        return 0;
+
+    }
+}
+void Chapter6Exercises::E6_11_printMonth(int year, int month) {
+    // Print the calendar for a month in a year
+
+    // Add spacing before header is printed
+    cout << "\n";
+
+    // Print the headings of the calendar
+    E6_11_printMonthTitle(year, month);
+
+    // Print the body of the calendar
+    E6_11_printMonthBody(year, month);
+
+    // Add spacing after body is printed
+    cout << "\n";
+}
+void Chapter6Exercises::E6_11_printMonthTitle(int year, int month) {
+    // Print the month title, e.g., May, 1999
+
+    E6_11_printMonthName(month);
+    cout << " " << year << '\n';
+    cout << "----------------------------" << '\n';
+    cout << " Sun Mon Tue Wed Thu Fri Sat" << '\n';
+}
+void Chapter6Exercises::E6_11_printMonthName(int month) {
+    // Get the English name for the month
+
+    switch(month) {
+
+        case 1:
+            cout << setw(12) << "January";
+            break;
+
+        case 2:
+            cout << setw(12) << "February";
+            break;
+
+        case 3:
+            cout << setw(12) << "March";
+            break;
+
+        case 4:
+            cout << setw(12) << "April";
+            break;
+
+        case 5:
+            cout << setw(12) << "May";
+            break;
+
+        case 6:
+            cout << setw(12) << "June";
+            break;
+
+        case 7:
+            cout << setw(12) << "July";
+            break;
+
+        case 8:
+            cout << setw(12) << "August";
+            break;
+
+        case 9:
+            cout << setw(12) << "September";
+            break;
+
+        case 10:
+            cout << setw(12) << "October";
+            break;
+
+        case 11:
+            cout << setw(12) << "November";
+            break;
+
+        case 12:
+            cout << setw(12) << "December";
+            break;
+
+        default:
+            // Error case
+            exit(0);
+    }
+}
+void Chapter6Exercises::E6_11_printMonthBody(int year, int month) {
+    // Print month body
+
+    // Get start day of the week for the first date in the month
+    int startDay = E6_11_getStartDay(month, year);
+
+    // Get number of days in the month
+    int numberOfDaysInMonth = E6_11_getNumberOfDaysInMonth(year, month);
+
+    // Pad space before the first day of the month. If startDay = 7, then Sunday is the first day of the month and
+    // there should be no padding.
+    for (int i = 0; startDay != 7 && i < startDay; i++)
+        cout << "\t";
+
+    // Print value of each day, taking a new line each time a row is full (final day of row is Saturday)
+    for (int i = 1; i <= numberOfDaysInMonth; i++) {
+        cout << setw(4) << i;
+
+        if ((i + startDay) % 7 == 0)
+            cout << '\n';
+    }
+}
+int Chapter6Exercises::E6_11_getStartDay(int month, int year) {
+    // Use Zeller's congruence algorithm from Exercise 3.8 to find the first day of the month
+    int dayOfTheWeek, dayOfTheWeekZeller, day, century, yearOfTheCentury;
+
+    // Zeller treats January and February as months of the following year, instead of being part of the current year
+    switch (month) {
+        case 1: month = 13;
+            year--;
+            break;
+        case 2: month = 14;
+            year--;
+            break;
+        default: break;
+    }
+
+    // Computation of century and yearOfTheCentury must be done after the Jan/Feb conversion to avoid LOGIC ERROR
+    century = year / 100;
+    yearOfTheCentury = year % 100;
+
+    // Want the first day of the month, hence why 'day' is initialised as 1
+    day = 1;
+
+    // Uses Zeller's algorithm to find the day of the week
+    dayOfTheWeekZeller = (day
+                          + (26 * (month + 1) / 10)
+                          + yearOfTheCentury
+                          + (yearOfTheCentury / 4)
+                          + (century / 4)
+                          + (5 * century)) % 7;
+
+    // Need to convert dayOfTheWeek output. Case number in switch statement is what Zeller uses, while the
+    // initialisations of dayOfTheWeek is what PrintCalendar uses
+    switch (dayOfTheWeekZeller) {
+        case 0:
+            // Saturday
+            dayOfTheWeek = 6;
+            break;
+
+        case 1:
+            // Sunday
+            dayOfTheWeek = 7;
+            break;
+
+        case 2:
+            // Monday
+            dayOfTheWeek = 1;
+            break;
+
+        case 3:
+            // Tuesdau
+            dayOfTheWeek = 2;
+            break;
+
+        case 4:
+            // Wednesday
+            dayOfTheWeek = 3;
+            break;
+
+        case 5:
+            // Thursday
+            dayOfTheWeek = 4;
+            break;
+
+        case 6:
+            // Friday
+            dayOfTheWeek = 5;
+            break;
+
+        default:
+            // Error case
+            exit(0);
+    }
+
+    return dayOfTheWeek;
+}
+int Chapter6Exercises::E6_11_getNumberOfDaysInMonth(int year, int month) {
+    // Get the number of days in a month
+
+    if (month == 1 || month == 3 || month == 5 || month == 7 ||
+        month == 8 || month == 10 || month == 12)
+        return 31;
+    else if (month == 4 || month == 6 || month == 9 || month == 11)
+        return 30;
+    else if (month == 2)
+        if (E6_11_isLeapYear(year))
+            return 29;
+        else
+            return 28;
+    else
+        return 0;
+}
+bool Chapter6Exercises::E6_11_isLeapYear(int year) {
+    // Determine if it is a leap year
+
+    return (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
+}
+
+int Chapter6Exercises::Exercise6_12() {
+
+    /* (- difficulty)
+     *
+     * The area of a pentagon can be computed using the following formula:
+     *
+     *          area = (5 * pow(s,2)) / (4 * tan(Pi / 5))
+     *
+     * Write a program that prompt the user to enter the side of a pentagon and displays the pentagon's area.
+     */
+
+    E6_12_areaOfPentagon();
+
+    return 0;
+}
+void Chapter6Exercises::E6_12_areaOfPentagon() {
+    // Function to find the area of a pentagon
+
+    // Prompt user for input
+    cout << "Enter the length of the side of a pentagon: ";
+    double length;
+    cin >> length;
+
+    cout << "The area of a pentagon, with sides of length "
+         << fixed << setprecision(2) << length
+         << ", is " << E6_12_calculateArea(length)
+         << '\n';
+}
+double Chapter6Exercises::E6_12_calculateArea(double s) {
+    // Calculates area of a pentagon, where 's' is the length of a side of the pentagon
+
+    double area = (5 * pow(s, 2)) / (4 * tan(M_PI / 5));
+
+    return area;
+}
+
+int Chapter6Exercises::Exercise6_13() {
+
+    /* (* difficulty)
+     *
+     * A regular polygon is an n-sided polygon where all sides are of the same length and all angles have the same
+     * degree (i.e., the polygon is both equilateral and equiangular). The formula for computing the area of a regular
+     * polygon is:
+     *
+     *                      area = (n * pow(s, 2)) / (4 * tan(Pi / n))
+     *
+     * where n is the number of sides and s is the length of a side. Write a function that returns a regular polygon's
+     * area using the following header:
+     *
+     *                  double regPolyArea(int n, double s)
+     *
+     *  Write a main function that prompts the user for the number of sides (n) and the length of a side (s). Display
+     *  the number and length of the sides and the resulting area of the polygon in the following format:
+     *
+     *                  An n-sided polygon with sides of length s has an area of A.
+     */
+
+    E6_13_areaOfPolygons();
+
+    return 0;
+}
+void Chapter6Exercises::E6_13_areaOfPolygons() {
+    // Function to find the area of a pentagon
+
+    // Prompt user for input
+    cout << "Enter the number of sides: ";
+    int numberOfSides;
+    cin >> numberOfSides;
+
+    cout << "Enter the length of a side of the polygon: ";
+    double lengthOfSides;
+    cin >> lengthOfSides;
+
+    cout << fixed << setprecision(2)
+         << "An " << numberOfSides << "-sided polygon with sides of length "
+         << lengthOfSides << " has an area of "
+         << E6_13_regPolyArea(numberOfSides, lengthOfSides) << ".\n";
+}
+double Chapter6Exercises::E6_13_regPolyArea(int n, double s) {
+    // Calculates area of a pentagon, where 's' is the length of a side of the pentagon
+
+    double area = (n * pow(s, 2)) / (4 * tan(M_PI / n));
+
+    return area;
 }
