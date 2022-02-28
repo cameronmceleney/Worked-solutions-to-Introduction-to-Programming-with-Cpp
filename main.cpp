@@ -8,6 +8,8 @@
 #include "Exercises/Chapter5Exercises.h"
 #include "Listings/Chapter6Listings.h"
 #include "Exercises/Chapter6Exercises.h"
+#include "Listings/Chapter7Listings.h"
+
 
 int main() {
 
@@ -21,8 +23,10 @@ int main() {
     Chapter5Exercises Ch5E;
     Chapter6Listings Ch6L;
     Chapter6Exercises Ch6E;
+    Chapter7Listings Ch7L;
 
-    Ch6E.Exercise6_15();
+
+    Ch7L.Listing7_8();
 
     return 0;
 }
