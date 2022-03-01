@@ -383,14 +383,33 @@ void Chapter7Listings::L7_7_displayCounts(const int counts[]) {
 }
 
 int Chapter7Listings::Listing7_8() {
+    // All the cout statements here are to illustrate the points that the book makes. If this code is being copied,
+    // then they are safe to delete.
+
+
     // Traces the function to linearly search with the given examples
+    int listForLinearSearch[] = {1, 4, 4, 2, 5, -3, 6 ,2};
+    int iLinear = L7_8_linearSearch(listForLinearSearch, 4, 8); // Should return 1 (found at element 1)
+    int jLinear = L7_8_linearSearch(listForLinearSearch, -4, 8); // Should return -1 (doesn't exist in given array)
+    int kLinear = L7_8_linearSearch(listForLinearSearch, -3, 8); // Should return 5 (found at element 5)
+    cout << iLinear << ", " << jLinear << ", " << kLinear << endl;
 
-    int list[] = {1, 4, 4, 2, 5, -3, 6 ,2};
-    int i = L7_8_linearSearch(list, 4, 8); // Should return 1 (found at element 1)
-    int j = L7_8_linearSearch(list, -4, 8); // Should return -1 (doesn't exist in given array)
-    int k = L7_8_linearSearch(list, -3, 8); // Should return 5 (found at element 5)
+    cout << "\n\n\n";
+    // Traces the function to linearly search with the given examples
+    cout << left <<  setw(32) << "Function" << setw(12) << "low" << setw(12) << "high" << setw(20) << "Value returned" << endl;
+    int listOfBinarySearch[] = {2, 4, 7, 10, 11, 45, 50,
+                                59, 60, 66, 69, 70, 79};
 
-    cout << i << ", " << j << ", " << k << endl;
+    cout << setw(32) << "binarySearch(list, 2, 13)";
+    int iBinary = L7_9_binarySearch(listOfBinarySearch, 2, 13); // Should return 0
+    cout << setw(32) << "binarySearch(list, 11, 13)";
+    int jBinary = L7_9_binarySearch(listOfBinarySearch, 11, 13); // Should return 4
+    cout << setw(32) << "binarySearch(list, 12, 13)";
+    int kBinary = L7_9_binarySearch(listOfBinarySearch, 12, 13); // Should return -1
+    cout << setw(32) << "binarySearch(list, 1, 13)";
+    int lBinary = L7_9_binarySearch(listOfBinarySearch, 1, 13); // Should return -1
+    cout << setw(32) << "binarySearch(list, 3, 13)";
+    int mBinary = L7_9_binarySearch(listOfBinarySearch, 3, 13); // Should return -1
 
     return 0;
 }
@@ -403,4 +422,86 @@ int Chapter7Listings::L7_8_linearSearch(const int list[], int key, int arraySize
     }
 
     return -1;
+}
+int Chapter7Listings::L7_9_binarySearch(const int list[], int key, int arraySize) {
+    // list[] must be ordered before a binarySearch can be used (typically ordered in ascending order)
+    int low = 0;
+    int high = arraySize - 1;
+
+    cout << setw(12) << low << setw(12) << high << setw(12);
+
+    while (high >= low) {
+        // Require >= operator, otherwise search may miss possible matches
+        int mid = (low + high) / 2;
+        if (key < list[mid])
+            // Only search first half of array
+            high = mid - 1;
+        else if (key == list[mid]) {
+            // End search with a match
+            cout << setw(20) << mid << endl;
+            return mid;
+        } else
+            // Only search second half of array
+            low = mid + 1;
+    }
+
+    cout << setw(20) << -1 << endl;
+    return -1;
+}
+
+int Chapter7Listings::Listing7_10() {
+
+    double listOfInts[] = {2, 9, 5, 4, 8, 1, 6};
+    L7_10_printArray(listOfInts, 7);
+
+    double listOfDoubles[] = {1, 9, 4.5, 6.6, 5.7, -4.5};
+    L7_10_printArray(listOfDoubles, 6);
+
+
+    return 0;
+}
+void Chapter7Listings::L7_10_printArray(double list[], int listSize) {
+    // Outputs the unsorted and sorted lists
+    cout << left;
+    cout << setw(16) << "Unsorted list: "; L7_10_printArrayElements(list, listSize);
+    L7_10_selectionSort(list, listSize);
+    cout << setw(16) << "Sorted list: "; L7_10_printArrayElements(list, listSize); cout << endl;
+
+}
+void Chapter7Listings::L7_10_printArrayElements(double list[], int listSize) {
+    // Prints each element of an array
+    cout << right;
+
+    for (int i = 0; i < listSize; i++) {
+        if (i == (listSize - 1))
+            cout << setw(4) << list[i];
+        else
+            cout << setw(4) << list[i] << ", ";
+    }
+
+    cout << endl;
+}
+void Chapter7Listings::L7_10_selectionSort(double list[], int listSize) {
+    // Works LHS to RHS along the array, swapping the i_th element with the smallest remaining value to the right of it
+
+    for (int i = 0; i < listSize; i++) {
+
+        double currentMin = list[i];
+        int currentMinIndex = i;
+
+        for (int j = i + 1; j < listSize; j++) {
+            //Find the minimum in the list[i,...,listSize-1]
+            if (currentMin > list[j]) {
+                // Value at current index is lower than position currently sorting
+                currentMin = list[j];
+                currentMinIndex = j;
+            }
+        }
+
+        if (currentMinIndex != i) {
+            // Swap the smallest unsorted element (list[currentMinIndex]) with the current position (list[i])
+            list[currentMinIndex] = list[i];
+            list[i] = currentMin;
+        }
+    }
 }

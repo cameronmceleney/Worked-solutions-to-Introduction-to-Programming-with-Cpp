@@ -58,8 +58,14 @@ private:
     void L7_7_countLetters(const char [], int []);
     void L7_7_displayCounts(const int []);
 
-    // Functions for Listing 7.8
-    int L7_8_linearSearch(const int list[], int key, int arraySize);
+    // Functions for Listing 7.8 and Listing 7.9, which have the same .cpp file of Searches
+    int L7_8_linearSearch(const int list[], int key, int arraySize); // Listing 7.8
+    int L7_9_binarySearch(const int list[], int key, int arraySize); // Listing 7.9
+
+    // Functions for Listing 7.10 and 7.11
+    void L7_10_printArray(double list[], int listSize);
+    void L7_10_printArrayElements(double list[], int listSize);
+    void L7_10_selectionSort(double list[], int listSize); // Listing 7.10
 
 public:
     //
@@ -71,7 +77,8 @@ public:
     int Listing7_5();                           // ConstArrayDemo.cpp
     int Listing7_6();                           // ReverseArray.cpp
     int Listing7_7();                           // CountLettersInArray.cpp
-    int Listing7_8();                           // LinearSearch.cpp
+    int Listing7_8();                           // Searches.cpp. Contains headers which are Listing 7.8 & 7.9
+    int Listing7_10();                          // SortingArrays.cpp
 
 };
 
