@@ -452,19 +452,31 @@ int Chapter7Listings::L7_9_binarySearch(const int list[], int key, int arraySize
 int Chapter7Listings::Listing7_10() {
 
     double listOfInts[] = {2, 9, 5, 4, 8, 1, 6};
-    L7_10_printArray(listOfInts, 7);
-
     double listOfDoubles[] = {1, 9, 4.5, 6.6, 5.7, -4.5};
-    L7_10_printArray(listOfDoubles, 6);
+    double listOfDoubles2[] = {1, 9, 4.5, 6.6, 5.7, -4.5};
 
+    cout << "----------------Linear Sorts----------------" << endl;
+    L7_10_printArrayLinear(listOfInts, 7);
+    L7_10_printArrayLinear(listOfDoubles, 6);
+
+    cout << "----------------Insertion Sorts----------------" << endl;
+    L7_10_printArrayInsert(listOfDoubles2, 6);
 
     return 0;
 }
-void Chapter7Listings::L7_10_printArray(double list[], int listSize) {
+void Chapter7Listings::L7_10_printArrayLinear(double list[], int listSize) {
     // Outputs the unsorted and sorted lists
     cout << left;
     cout << setw(16) << "Unsorted list: "; L7_10_printArrayElements(list, listSize);
     L7_10_selectionSort(list, listSize);
+    cout << setw(16) << "Sorted list: "; L7_10_printArrayElements(list, listSize); cout << endl;
+
+}
+void Chapter7Listings::L7_10_printArrayInsert(double list[], int listSize) {
+    // Outputs the unsorted and sorted lists
+    cout << left;
+    cout << setw(16) << "Unsorted list: "; L7_10_printArrayElements(list, listSize);
+    L7_10_insertionSort(list, listSize);
     cout << setw(16) << "Sorted list: "; L7_10_printArrayElements(list, listSize); cout << endl;
 
 }
@@ -504,4 +516,54 @@ void Chapter7Listings::L7_10_selectionSort(double list[], int listSize) {
             list[i] = currentMin;
         }
     }
+}
+void Chapter7Listings::L7_10_insertionSort(double *list, int listSize) {
+    // Repeatedly insert a new element into a sorted sublist until the whole original list is sorted
+    for (int i = 1; i < listSize; i++) {
+        // Insert list[i]i into a sorted sublist list[0,..., (i - 1)] so that list[0,..., i] is sorted
+        double currentElement = list[i];
+        int k;
+        for (k = i - 1; k >= 0 && list[k] > currentElement; k--)
+            list[k + 1] = list[k];
+
+        // Insert the current element in list[k + 1]
+        list[k + 1] = currentElement;
+    }
+}
+
+int Chapter7Listings::Listing7_12() {
+
+    char s1[20];
+    char s2[] = "Texas, USA"; // Let C++ figure out the size of s2
+    char s3[] = "Dallas"; // Let C++ figure out the size of s3
+
+    strcpy(s1, s2); // Copy s2 to s1
+    cout << "The string in s1 is " << s1 << endl;
+
+    cout << "The length of string s1 is " << strlen(s1) << endl;
+
+    strcat(strcat(s1, ", "), s2);
+
+    cout << "The string in s1 is " << s1 << endl;
+    cout << "The string in s2 is " << s2 << endl;
+
+    cout << "strcmp(s2, s3) is " << strcmp(s2, s3) << endl;
+
+    // Conversion functions
+    cout << atoi("42") + atoi("56") << endl;
+    cout << atof("3.5") + atof("5.5") << endl;
+
+    /* Commented out as itoa() is nonstandard
+     * char s[10];
+     * // itoa(42, s, 2); // Radix 2 (binary)
+     * cout << "42 is " << s << " in binary" << endl;
+     *
+     * // itoa(42, s, 10); // Radix 10 (normal counting system; base 10)
+     * cout << "42 is " << s << endl;
+     *
+     * // itoa(42, s, 16); // Radix 16 (hexadecimal)
+     * cout << "42 is " << s << " in hex" << endl;
+     */
+
+    return 0;
 }
