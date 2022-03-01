@@ -82,7 +82,7 @@ public:
     int Listing7_7();                           // CountLettersInArray.cpp
     int Listing7_8();                           // Searches.cpp. Contains headers which are Listing 7.8 & 7.9
     int Listing7_10();                          // SortingArrays.cpp
-    int Listing7_12();
+    int Listing7_12();                          // CStringFunctionDemo.cpp
 
 };
 
