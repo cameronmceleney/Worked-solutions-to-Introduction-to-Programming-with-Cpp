@@ -29,6 +29,11 @@ class Chapter7Exercises {
     void E7_4_compareToAverage(const double list[], const int &arraySize);
     double E7_4_findAverage(const double list[], const int &arraySize);
 
+    // Functions for Exercise 7.5
+    void E7_5_printDistinctNumbers(int list[], const int &arraySize);
+    bool E7_5_isInList(int list[], const int &arraySize, const int &testValue);
+    void E7_5_printArray(const int list[], const int &arraySize);
+
 public:
 
     // Covers content from Sections 7.2 - 7.4
@@ -36,6 +41,7 @@ public:
     int Exercise7_2();                              // (Reversing the numbers entered)
     int Exercise7_3();                              // (Counting the occurrence of numbers)
     int Exercise7_4();                              // (Analysing scores)
+    int Exercise7_5();                              // (Printing distinct numbers)
 
 };
 

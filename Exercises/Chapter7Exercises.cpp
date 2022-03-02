@@ -207,3 +207,69 @@ double Chapter7Exercises::E7_4_findAverage(const double list[], const int &array
 
     return average;
 }
+
+int Chapter7Exercises::Exercise7_5() {
+
+    /* (** difficulty)
+     *
+     * Write a program that reads in ten numbers and displays distinct numbers (i.e., if a number appears multiple
+     * times, it is displayed only once). (Hint: Read a number and store it to an array if it is new. If the number is
+     * already in the array, discard it. After the input, the array contains the distinct numbers.) Here is a
+     * sample run of the program:
+     *
+     *          Enter ten numbers: 1 2 3 2 1 6 3 4 5 2
+     *          The distinct numbers are: 1 2 3 6 4 5
+     */
+
+    const int MAX_SIZE = 10;
+    int list[MAX_SIZE];
+
+    // Prompt user for inputs
+    cout << "Enter ten numbers: ";
+
+    E7_5_printDistinctNumbers(list, MAX_SIZE);
+
+    return 0;
+}
+void Chapter7Exercises::E7_5_printDistinctNumbers(int list[], const int &arraySize) {
+
+    int i = 0, distinctNumbers = 0, inputValue ;
+
+    do {
+        // Take in one input
+        cin >> inputValue;
+
+        if (i == 0) {
+            // First input can be saved straight to the array.
+            list[i] = inputValue;
+            distinctNumbers++;
+            continue;
+        }
+        if (!E7_5_isInList(list, arraySize, inputValue)) {
+            // A return of false means the current input is not in the array, and needs to be saved
+            list[distinctNumbers] = inputValue;
+            distinctNumbers++;
+        }
+    } while (++i < arraySize);
+
+    E7_5_printArray(list, distinctNumbers);
+}
+bool Chapter7Exercises::E7_5_isInList(int list[], const int &arraySize, const int &testValue) {
+
+    bool isValueInList = false; // Declared out with loop to ensure all control paths are covered.
+
+    for (int i = 0; i < arraySize; i++) {
+
+        if (list[i] == testValue)
+            isValueInList = true;
+    }
+
+    return isValueInList;
+}
+void Chapter7Exercises::E7_5_printArray(const int list[], const int &arraySize) {
+    // Prints array called 'list' element-by-element
+    cout << "The distinct numbers are: ";
+
+    for (int i = 0; i < arraySize; i++)
+        cout << list[i] << " ";
+}

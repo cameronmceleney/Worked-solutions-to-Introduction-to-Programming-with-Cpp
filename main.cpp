@@ -28,7 +28,7 @@ int main() {
     Chapter7Exercises Ch7E;
 
 
-    Ch7E.Exercise7_4();
+    Ch7E.Exercise7_5();
 
     return 0;
 }
