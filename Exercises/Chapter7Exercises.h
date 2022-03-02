@@ -34,6 +34,41 @@ class Chapter7Exercises {
     bool E7_5_isInList(int list[], const int &arraySize, const int &testValue);
     void E7_5_printArray(const int list[], const int &arraySize);
 
+    // Function for Exercise 7.6
+    void E7_6_findPrimes(int listOfPrimes[], const int &numberOfPrimesToFind);
+    void E7_6_printArray(const int list[], const int &arraySize);
+
+    // Functions for Exercise 7.7
+    void E7_7_countRandomNumbers(int counts[], const int &totalToGenerate, const int &maxValue);
+    void E7_7_printArray(const int counts[], const int &maxValue);
+
+    // Functions for Exercise 7.8
+    int E7_8_indexOfSmallestElement(double array[], int size);
+
+    // Functions for Exercise 7.9
+    double E7_9_max(double array[], int size);
+
+    // Functions for Exercise 7.10
+    int E7_10_average(const int array[], int size);
+    double E7_10_average(const double array[], int size);
+
+    // Functions for Exercise 7.11
+    double E7_11_mean(const double x[], int size);
+    double E7_11_deviation(const double x[], int size);
+
+    // Functions for Exercise 7.12
+    void E7_12_assignGrades(const double grades[], const int &arraySize);
+    double E7_12_findBestGrade(const double grades[], const int &arraySize);
+
+    // Functions for Exercise 7.13
+    double E7_13_binarySearch(const int list[], int key, int arraySize);
+
+    // Functions for Exercise 7.14
+    int E7_14_linearSearch(const int list[], int key, int arraySize);
+    int E7_14_binarySearch(int list[], int key, int arraySize);
+    void E7_14_selectionSort(int list[], int arraySize);
+
+
 public:
 
     // Covers content from Sections 7.2 - 7.4
@@ -42,6 +77,19 @@ public:
     int Exercise7_3();                              // (Counting the occurrence of numbers)
     int Exercise7_4();                              // (Analysing scores)
     int Exercise7_5();                              // (Printing distinct numbers)
+    int Exercise7_6();                              // (Revising Listing 4.14, PrimeNumber.cpp)
+    int Exercise7_7();                              // (Counting single digits)
+
+    // Covers content from Sections 7.5 - 7.7
+    int Exercise7_8();                              // (Finding the index of the smallest element)
+    int Exercise7_9();                              // (Find the largest element)
+    int Exercise7_10();                             // (Averaging an array)
+    int Exercise7_11();                             // (Computing deviation)
+    int Exercise7_12();                             // (Assigning grades)
+
+    // Covers content from Sections 7.8 - 7.9
+    int Exercise7_13();                             // (Financial applications: finding the sales amount) Skipped this
+    int Exercise7_14();                             // (Timing execution)
 
 };
 

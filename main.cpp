@@ -15,11 +15,11 @@
 int main() {
 
     Chapter2Listings Ch2L;
-    Chapter2Exercises Ch2Ex;
+    Chapter2Exercises Ch2E;
     Chapter3Listings Ch3L;
-    Chapter3Exercises Ch3Ex;
+    Chapter3Exercises Ch3E;
     Chapter4Listings Ch4L;
-    Chapter4Exercises Ch4Ex;
+    Chapter4Exercises Ch4E;
     Chapter5Listings Ch5L;
     Chapter5Exercises Ch5E;
     Chapter6Listings Ch6L;
@@ -27,8 +27,7 @@ int main() {
     Chapter7Listings Ch7L;
     Chapter7Exercises Ch7E;
 
-
-    Ch7E.Exercise7_5();
+    Ch7E.Exercise7_14();
 
     return 0;
 }
