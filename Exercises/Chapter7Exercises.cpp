@@ -651,64 +651,7 @@ int Chapter7Exercises::Exercise7_13() {
      * (COMMISSION_SOUGHT / 0.08), you can use a binary search to improve the solution.
      */
 
-    // All variables are in dollars. Reduce value of individualSale to increase precision of finding targetSalary
-    const double individualSale = 1.0, COMMISSION_SOUGHT = 25000; // Compute salary
-
-    double targetSalary = 30000;
-    /*
-    double salesAmount = 0, commissionEarned = 0;
-    while (commissionEarned <= COMMISSION_SOUGHT) {
-        salesAmount += individualSale;
-
-        if (salesAmount <= 5000) {
-            commissionEarned += 0.08 * individualSale;
-        } else if (salesAmount <= 10000) {
-            commissionEarned += 0.1 * individualSale;
-        } else {
-            commissionEarned += 0.12 * individualSale;
-        }
-    }
-    */
-    int salesValues[] = {0};
-
-    int arraySize = 0;
-    for (int i = 1; i < (COMMISSION_SOUGHT / 0.08); i += 10000) {
-        salesValues[arraySize] = i;
-        arraySize++;
-    }
-
-    double commissionNeeded = E7_13_binarySearch(salesValues, (targetSalary - 5000), arraySize);
-    cout << fixed << setprecision(2)
-         << "For commission total of $" << COMMISSION_SOUGHT
-         << ", one must generate $" << commissionNeeded << " in sales,"
-         << endl;
-
     return 0;
-}
-double Chapter7Exercises::E7_13_binarySearch(const int list[], int key, int arraySize) {
-    // list[] must be ordered before a binarySearch can be used (typically ordered in ascending order)
-    int low = 0;
-    int high = arraySize - 1;
-
-    cout << setw(12) << low << setw(12) << high << setw(12);
-
-    while (high >= low) {
-        // Require >= operator, otherwise search may miss possible matches
-        int mid = (low + high) / 2;
-        if (key < list[mid])
-            // Only search first half of array
-            high = mid - 1;
-        else if (key == list[mid]) {
-            // End search with a match
-            cout << setw(20) << mid << endl;
-            return mid;
-        } else
-            // Only search second half of array
-            low = mid + 1;
-    }
-
-    cout << setw(20) << -1 << endl;
-    return -1;
 }
 
 int Chapter7Exercises::Exercise7_14() {
@@ -791,7 +734,7 @@ void Chapter7Exercises::E7_14_selectionSort(int list[], int arraySize) {
 
     for (int i = 0; i < arraySize; i++) {
 
-        double currentMin = list[i];
+        int currentMin = list[i];
         int currentMinIndex = i;
 
         for (int j = i + 1; j < arraySize; j++) {
@@ -809,4 +752,348 @@ void Chapter7Exercises::E7_14_selectionSort(int list[], int arraySize) {
             list[i] = currentMin;
         }
     }
+}
+
+int Chapter7Exercises::Exercise7_15() {
+
+    /* (* difficulty)
+     *
+     * A school has 100 lockers and 100 students. All lockers are closed on the first day of school. As the students
+     * enter, the first student, denoted S1, opens every locker. Then the second student, S2, begins with the second
+     * locker, denoted L2, and closed every other locker. Student S3 begins with the third locker and changes every
+     * third locker (closes it if it was open, and opens it if it was closed). Student S4 begins with locker L4 and
+     * changes every fourth locker. Student S5 starts with L5 and changes every fifth locker, and so on unit student
+     * S100 changes L100.
+     *
+     * After all the students have passed through the building and changed the lockers, which lockers are open? Write a
+     * program to find your answer.
+     *
+     * (Hint: Use an array of 100 elements, each of which stores the number of the times a locker has changed. If a
+     * locker changes an even number of times, it is closed; otherwise it is open. You could also use boolean values
+     * to track whether a locker is open or closed.)
+     */
+
+    const int NUMBER_OF_LOCKERS = 100, NUMBER_OF_STUDENTS = 100;
+
+    E7_15_findOpenLockers(NUMBER_OF_LOCKERS, NUMBER_OF_STUDENTS);
+
+    return 0;
+}
+void Chapter7Exercises::E7_15_findOpenLockers(const int &numberOfLockers, const int &numberOfStudents) {
+    // Function to solve the 'Locker Riddle' for a variable number of lockers
+    const int NUMBERS_PER_LINE = 8;
+    int lockersArray[numberOfLockers];
+
+    for (int i = 0; i < numberOfLockers; i++)
+        // Can't initialise variable-sized array so that must be done first
+        lockersArray[i] = 0;
+
+    for (int student = 1; student <= numberOfStudents; student++) {
+        // Loop through all students, starting at 1 to match question notation
+        for (int locker = (student - 1); locker < numberOfLockers; locker += student)
+            // Change iteration start to be 0 to match array length
+            lockersArray[locker]++;
+    }
+
+    int numbersPerLine = 0;
+    cout << right << "Open lockers" << endl;
+    for (int i = 0; i < numberOfLockers; i++) {
+        // Print the number of every opened locker. Only should have perfect squares as outputs
+        if (lockersArray[i] % 2 != 0) {
+            // Interacted with an odd number of times means the locker is left open
+            if ((++numbersPerLine) % NUMBERS_PER_LINE == 0)
+                cout << setw(4) << i + 1 << "\n";
+            else
+                cout <<  setw(4) << i + 1<< ", ";
+        }
+    }
+
+    numbersPerLine = 0; // Reset counter
+    cout << "\n\nClosed lockers" << endl;
+    for (int i = 0; i < numberOfLockers; i++) {
+        // Print the number of every closed locker. Only should contain non-perfect squares as outputs
+        if (lockersArray[i] % 2 == 0) {
+            // Interacted with an even number of times means the locker has been closed
+            if ((++numbersPerLine) % NUMBERS_PER_LINE == 0)
+                cout << setw(4) << i + 1 << "\n";
+            else
+                cout << setw(4) << i + 1<< ", ";
+        }
+    }
+}
+
+int Chapter7Exercises::Exercise7_16() {
+
+    /* (** difficulty)
+     *
+     *
+     * Write a sort function that uses the bubble-sort algorithm. The algorithm makes several passes through the array.
+     * One each pass, successive neighbouring pairs are compared. If a pair is in decreasing order, its values are
+     * swapped; otherwise, the values remain unchanged. The technique is called a 'bubble sort' or 'sinking sort'
+     * because the smaller values gradually 'bubble' their way to the top and the larger values sink to the bottom.
+     *
+     * The algorithm can be described as follows:
+     *
+     *                          bool changed = true;
+     *                          do
+     *                          {
+     *                              changed = false;
+     *                              for (int j = 0; j < listSize - 1; j++)
+     *                                  if (list[j] > list[j + 1])
+     *                                  {
+     *                                      // swap list[j] with list[j + 1];
+     *                                      changed = true;
+     *                                  }
+     *                          } while (changed);
+     *
+     * Clearly, the lst is in increasing order whe the loop terminates. It is easy to show that the do loop executes
+     *  at most (listSize - 1) times (as there are listSize - 1 pairs).
+     *
+     *  Write a test program that reads in an array of ten double numbers, invokes the
+     *  function, and displays the sorted numbers.
+     */
+    srand(time(0));
+    const int TOTAL_NUMBERS = 10;
+
+    cout << "Enter ten numbers: ";
+    double array[TOTAL_NUMBERS];
+    for (int i = 0; i < TOTAL_NUMBERS; i++) {cin >> array[i];}
+
+    E7_16_bubbleSort(array, TOTAL_NUMBERS);
+
+    E7_16_printArray(array, TOTAL_NUMBERS);
+
+    return 0;
+}
+void Chapter7Exercises::E7_16_bubbleSort(double array[], const int &arraySize) {
+
+    bool changed = true;
+    do {
+        changed = false;
+        for (int j = 0; j < arraySize - 1; j++) {
+
+            if (array[j] > array[j + 1]) {
+                E7_16_swap(array[j], array[j + 1]);
+                changed = true;
+            }
+        }
+    } while (changed);
+}
+void Chapter7Exercises::E7_16_swap(double &n1, double &n2) {
+    // Swap number 'n1' with number 'n2'. Exact copy of Exercise 6.1
+    double tempNumber = n1;
+    n1 = n2;
+    n2 = tempNumber;
+}
+void Chapter7Exercises::E7_16_printArray(const double array[], const int &arraySize) {
+    // Prints array called 'list' element-by-element. Exact copy of Exercise 7.2
+    for (int i = 0; i < arraySize; i++)
+        cout << array[i] << " ";
+}
+
+int Chapter7Exercises::Exercise7_17() {
+
+    /* (*** difficulty)
+     *
+     * The bean machine, also known as a quincunx or the Galton box, is a device for statistical experiments named
+     * after English scientist Sir Francis Galton. It consists of an upright board with evenly spaced nails (or pegs)
+     * in a triangular form, as shown in Fig.13 (Note: Can also see at https://i.stack.imgur.com/Ltypc.png).
+     *
+     * Balls are dropped from the opening of the board. Every time a ball hits a nail, it has a 50% chance to fall to
+     * the left and a 50% chance to fall to the right. The piles of balls are accumulated in the slots at the bottom
+     * of the board.
+     *
+     * Write a program that simulates the bean machine. Your program should prompt the user to enter the number of balls
+     * to be dropped, and the number of slots (maximum 50) in the machine. Simulate the falling of each ball by printing
+     * its path. For example, the path for the ball could look like LLRRLLR and the path for another could look like
+     * RLRRLRR. Display the final buildup of the balls in the slots in a histogram. Here is a sample run of the program:
+     *
+     *              Enter the number of balls to drop: 5
+     *              Enter the number of slots in the bean machine: 7
+     *
+     *              LRLRLRR
+     *              RRLLLRR
+     *              LLRLLRR
+     *              RRLLLLL
+     *              LRLRRLR
+     *
+     *                 0
+     *                 0
+     *               000
+     *
+     * (Hint: Create a n array named slots. Each element in slots stores the number of balls in a slot. Each ball falls
+     * into a slot via a path. The number of R's in a path is the position of the slot where the ball falls. For
+     * example, for the path LRLRLRR, the ball falls into slots[4], and for the path RRLLLLL, the ball falls int
+     * slots[2]/)
+     */
+
+    cout << "Enter the number of balls to drop: ";
+    int balls;
+    cin >> balls;
+
+    cout << "Enter the number of slots in the bean machine: ";
+    int slots;
+    cin >> slots;
+
+    E7_17_galtonMachine(balls, slots);
+
+    return 0;
+}
+void Chapter7Exercises::E7_17_galtonMachine(const int &numberOfBalls, const int &numberOfSlots) {
+    // Function to simulate the Galton Box
+    srand(time(0));
+
+    const int MAXIMUM_SLOTS = 50;
+
+    // Declare and initialise array to track what slot a ball ends up in
+    int ballsInSlots[numberOfSlots];
+    for (int i = 0; i <= numberOfSlots; i++) {ballsInSlots[i] = 0;}
+
+    if (numberOfSlots > MAXIMUM_SLOTS) {
+        // Error message if hard limit of slots reached
+        cout << "Too many slots! Please enter a value less than 50";
+        return;
+    }
+
+    // Invoke functions
+    E7_17_dropBall(numberOfBalls, numberOfSlots, ballsInSlots);
+    E7_17_printHistogram(numberOfSlots, ballsInSlots);
+}
+void Chapter7Exercises::E7_17_dropBall(const int &numberOfBalls, const int &numberOfSlots, int slotsArray[]) {
+    // Drops the desired number of balls through the box, and records their final positions
+    for (int ball = 0; ball < numberOfBalls; ball++) {
+
+        int numberOfNails = numberOfSlots - 1; // See figure to see, there is 1 fewer row of nails than total slots
+        cout << "\n";
+
+        int position = 0; // Tracks where the ball ends up
+        for (int nail = 0; nail <= numberOfNails; nail++) {
+            // At each nail, simulate which way the ball falls. Going left, the index doesn't change ("falls in place")
+            int LorR = rand() % 2; // LorR stands for 'Left or Right'
+
+            if (LorR)
+                cout << "L";
+            else {
+                cout << "R";
+                position++;
+            }
+        }
+        slotsArray[position]++; // Add final position to array
+    }
+
+    cout << "\n";
+}
+void Chapter7Exercises::E7_17_printHistogram(const int &numberOfSlots, const int slotsArray[]) {
+    // Prints the histogram of where the balls end up, with the data in columns
+
+    // Create histogram header
+    cout << "\n--Slots--" << "\n";
+
+    // Finding the largest amount indicates how many rows will be printed
+    int largestAmount = E7_17_findLargest(numberOfSlots, slotsArray);
+
+    for (int i = largestAmount; i > 0; i--) {
+        // Print each row top down
+        for (int slot = 0; slot < numberOfSlots; slot++) {
+            if (slotsArray[slot] >= i)
+                cout << "0";
+            else
+                cout << " ";
+        }
+        cout << "\n";
+    }
+
+    cout << "\n";
+}
+int Chapter7Exercises::E7_17_findLargest(const int &numberOfSlots, const int slotsArray[]) {
+    // Find the largest number in given array
+    int max = 0;
+
+    for (int i = 0; i < numberOfSlots; i++)
+        if (slotsArray[i] > max)
+            max = slotsArray[i];
+
+    return max;
+}
+
+int Chapter7Exercises::Exercise7_18() {
+
+    /* (- difficulty)
+     *
+     * In Section 7.9.1, you used selection sort to sort an array. The selection-sort function repeatedly finds the
+     * smallest in the current array and swaps it with the first. Rewrite this example by finding the largest number
+     * and swapping it with the last number in the array. Write a test program that reads in an array of ten double
+     * numbers, invokes the function, and displays the sorted numbers.
+     */
+
+    const int MAX_NUMBERS = 10;
+
+    cout << "Enter ten numbers: ";
+    double array[MAX_NUMBERS];
+    for (int i = 0; i < MAX_NUMBERS; i++) {cin >> array[i];}
+
+    cout << left << setw(12) << "Unsorted: ";
+    E7_18_printArray(array, MAX_NUMBERS);
+
+    E7_18_selectionSort(array, MAX_NUMBERS);
+
+    cout << left << setw(12) << "Sorted: ";
+    E7_18_printArray(array, MAX_NUMBERS);
+
+    return 0;
+}
+void Chapter7Exercises::E7_18_selectionSort(double array[], const int &arraySize) {
+    // Works LHS to RHS along the array, swapping the i_th element with the smallest remaining value to the right of it
+
+    for (int i = arraySize - 1; i >= 0; i--) {
+
+        double currentMax = array[i];
+        int currentMaxIndex = i;
+
+        for (int j = i - 1; j >= 0; j--) {
+            //Find the maximum in the list[i,...,i-1]. j must change with i after each iteration of the outer FOR!
+            if (currentMax < array[j]) {
+                // Value at current index is greater than saved max for current iteration of sorting
+                currentMax = array[j];
+                currentMaxIndex = j;
+            }
+        }
+
+        if (currentMaxIndex != i) {
+            // Swap the largest unsorted element (list[currentMaxIndex]) with the current position (list[i])
+            array[currentMaxIndex] = array[i];
+            array[i] = currentMax;
+        }
+    }
+}
+void Chapter7Exercises::E7_18_printArray(double const array[], const int &arraySize) {
+    // Prints each element in the array. copy of Exercise 7.2
+
+    cout << right;
+
+    for (int i = 0; i < arraySize; i++) {
+        cout << setw(4) << array[i] << ", ";
+    }
+    cout << "\n";
+}
+
+int Chapter7Exercises::Exercise7_19() {
+
+    /* (** difficulty)
+     *
+     * Coupon collector is a classic statistic problem with many practical applications. The problem is to pick
+     * objects from a set of objects repeatedly and find out how many picks are needed for all the objects to be
+     * picked at least once. A variation of the problem is to pick cards from a shuffled deck of 52 cards
+     * repeatedly and see how many picks are needed before you see one of each suit. Write a program to simulate
+     * the number of picks needed to get four cards from each suit and display the four cards picked (it is
+     * possible a card many be picked twice). Here is a sample run of the program:
+     *
+     *                      Queen of Spades
+     *                      5 of Clubs
+     *                      Queen of Hearts
+     *                      4 of Diamonds
+     *                      Number of picks: 12
+     */
+
+    return 0;
 }

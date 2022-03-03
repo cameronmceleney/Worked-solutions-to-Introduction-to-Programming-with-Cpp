@@ -68,6 +68,24 @@ class Chapter7Exercises {
     int E7_14_binarySearch(int list[], int key, int arraySize);
     void E7_14_selectionSort(int list[], int arraySize);
 
+    // Functions for Exercise 7.15
+    void E7_15_findOpenLockers(const int &numberOfLockers, const int &numberOfStudents);
+
+    // Functions for Exercise 7.16
+    void E7_16_bubbleSort(double array[], const int &arraySize);
+    void E7_16_swap(double &n1, double &n2);
+    void E7_16_printArray(const double array[], const int &arraySize);
+
+    // Functions for Exercise 7.17
+    void E7_17_galtonMachine(const int &numberOfBalls, const int &numberOfSlots);
+    void E7_17_dropBall(const int &numberOfBalls, const int &numberOfSlots, int slotsArray[]);
+    void E7_17_printHistogram(const int &numberOfSlots, const int slotsArray[]);
+    int E7_17_findLargest(const int &numberOfSlots, const int slotsArray[]);
+
+    // Functions for Exercise 7.18
+    void E7_18_selectionSort(double array[], const int &arraySize);
+    void E7_18_printArray(double const array[], const int &arraySize);
+
 
 public:
 
@@ -90,8 +108,12 @@ public:
     // Covers content from Sections 7.8 - 7.9
     int Exercise7_13();                             // (Financial applications: finding the sales amount) Skipped this
     int Exercise7_14();                             // (Timing execution)
+    int Exercise7_15();                             // (Game: locker puzzle)
+    int Exercise7_16();                             // (Bubble sort)
+    int Exercise7_17();                             // (Game: bean machine)
+    int Exercise7_18();                             // (Revising selection sort)
+    int Exercise7_19();                             // (Simulation: coupon collector's problem)
 
 };
-
 
 #endif //TESTLOCATIONLOCALFORCPP_CHAPTER7EXERCISES_H
